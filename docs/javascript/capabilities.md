@@ -381,25 +381,6 @@ Target that allows customizing pages on your site. This specific target allows d
 - [Display a message across your entire site](./use-cases#display-a-message-accross-your-entire-site)
 - [Display a message above all pages of a certain type](./use-cases#display-a-message-above-all-pages-of-a-certain-type)
 
-### User profile
-
-Target that allows customizing the [user profile page](https://docs.lumapps.com/docs/users-l24200460242637034).
-
-![Target user profile](./assets/target-profile.png "Target user profile")
-
-#### Compatibility
-
-|               |                                                                                                                  |
-|---------------|------------------------------------------------------------------------------------------------------------------|
-| Target ID     | `profile`                                                                                                        |
-| Description   | Target the user profile page.                                                                                    |
-| Placements    | Compatible with placements: `ABOVE`, `UNDER`. Customizations will be added as siblings of the user profile page. |
-| Disable       | No compatibility                                                                                                 |
-| Changing text | No compatibility                                                                                                 |
-
-#### Use cases
-
-- [Display a message above all pages of a certain type](./use-cases#display-a-message-above-all-pages-of-a-certain-type)
 
 ### Organization chart
 
