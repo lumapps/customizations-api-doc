@@ -579,14 +579,13 @@ There are two targets that focus on the sub navigation, each of them have a diff
 - [Hide the entire navigation on your site](./use-cases#hide-the-entire-navigation-on-your-site)
 - [Create a custom navigation for your site](./use-cases#create-a-custom-navigation-for-your-site)
 
-### Widget - NGI
+### Widget
 
 Dynamic target that allows customizing the surroundings of a [widget](https://docs.lumapps.com/docs/explore-l8845750598632305) in the Next Gen Interface.
 
 **IMPORTANT:**
 - This is only compatible with pages rendered in the Next Gen Interface.
-- This is only compatible with HTML widgets
-- This target should only be used for customizing an existing widget. For creating new custom widgets, please create an [extension](../../extensions/index.md)
+- This target should only be used for customizing an existing widget. For creating new custom widgets, please create an extension
 
 #### Compatibility
 
@@ -600,6 +599,7 @@ Dynamic target that allows customizing the surroundings of a [widget](https://do
 
 **Notes:**
 - `id` can be retrieved by inspecting the HTML of your content and retrieving the id. Without the `id`, the target will be considered as invalid
+- `id` can also be the `identifier` that can be added from the widget's c
 
 ![Target Widget NGI](./assets/target-widget-ngi.png "Target Widget NGI")
 

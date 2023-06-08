@@ -654,6 +654,61 @@ window.lumapps.customize(({ components, placement }) => {
 **Use case limitations and best practices**
 - This use case should only be used when the other customization options for a widget are not enough.
 
+## Add a reading time estimate to an HTML widget
+
+The following customisation retrieves the HTML from a certain HTML widget and renders the estimate reading time above the widget.
+
+```js
+window.lumapps.customize(({ components, placement, render }) => {
+    const { Text } = components;
+
+    render({
+        placement: placement.ABOVE,
+        // ID retrieved from inspecting the HTML of the page and focusing on the `article` tag that surrounds the widget
+        // The attribute to retrieve is `id`
+        target: 'widget-b14fc167-f5e3-4cbb-a215-7111103eeafb',
+        toRenderWithContext: (context) => {
+            var wpm = 240; //average adult words per minute
+            var nw = context.html.split(/\s/g).length;
+            var rt = parseInt(nw / wpm); //the actual reading time
+            var outString;
+            if (rt == 0) outString = "less than a minute";
+            else outString = rt + " minute" + (rt != 1 ? "s" : "");
+
+                return Text({
+                    children: `Estimating reading time: ${outString}`,
+                });
+            },
+    });
+});
+```
+
+This can also be achieved with the widget's identifier, which can be added via the editor, on the Style > Advanced > Identifier field
+
+```js
+window.lumapps.customize(({ components, placement, render }) => {
+    const { Text } = components;
+
+    render({
+        placement: placement.ABOVE,
+        // widget's identifier, which can be added via the editor, on the Style > Advanced > Identifier field
+        target: 'widget-estimate-reading-time',
+        toRenderWithContext: (context) => {
+            var wpm = 240; //average adult words per minute
+            var nw = context.html.split(/\s/g).length;
+            var rt = parseInt(nw / wpm); //the actual reading time
+            var outString;
+            if (rt == 0) outString = "less than a minute";
+            else outString = rt + " minute" + (rt != 1 ? "s" : "");
+
+                return Text({
+                    children: `Estimating reading time: ${outString}`,
+                });
+            },
+    });
+});
+```
+
 ## Adding components to the main navigation
 
 In the following use case, we are using the target `NAVIGATION` and placement `RIGHT` to render a custom dropdown on the right hand side of the navigation, so we can profit from the extra space and display some useful links to our users.

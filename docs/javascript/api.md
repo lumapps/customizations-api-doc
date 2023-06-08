@@ -33,7 +33,8 @@ Where `callback` is a function that will receive a set of `parameters` and retur
 | `constants`    | A group of variables that hold the different [constants](#constants) that can be used for creating components on your site.                                        |
 | `render`       | Function that allows rendering a component in a specific placement and target. See more details for this function [here](#render).                                 |
 | `session`      | Object that contains several values from the current session that can be useful when creating customizations. See more details for this function [here](#session). |
-| `onNavigation` | Function that will be executed once the application has performed a navigation. See more details for this function [here](#on-navigation)                          |
+| `onNavigation` | Function that will be executed once any widget in a content is rendered. See more details for this function [here](#on-widget-rendered)                          |
+| `onWidgetRendered` | Function that will be executed once the application has performed a navigation. See more details for this function [here](#on-navigation)                          |
 | `api`          | [Axios](https://github.com/axios/axios) instance that allows the developer to execute AJAX requests. See more details for this function [here](#axios-api)         |
 
 And `configuration` is an object that allows these properties:
@@ -77,10 +78,10 @@ And `configuration` is an object that allows these properties:
 | `targets.SUB_NAVIGATION_UI`      | Target id for the sub navigation's UI.                                              | [Documentation](./capabilities#sub-navigation-ui)      |
 | `targets.WIDGET`                 | Target id for a widget.                                                             | [Documentation](./capabilities#widget)                 |
 | `targets.USER_DIRECTORY`         | Target id for the user directory.                                                   | [Documentation](./capabilities#user-directory)         |
-| `targets.USER_PROFILE_ORG_CHART`      | Target id for the organization chart section in a user's profile.                                              | [Documentation](./capabilities#organization-chart)      |
 
+#### widget target
 
-**Note:** The Widget target needs to be used in combination with a widget id. The final target passed in into the `render` function should be `${targets.WIDGET}-${widget-id}`.
+The Widget target needs to be used in combination with a widget id. The final target passed in into the `render` function should be `${targets.WIDGET}-${widget-id}`.
 
 ```js
 window.lumapps.customize(({ targets, components, render, placement, constants }) => {
@@ -94,6 +95,28 @@ window.lumapps.customize(({ targets, components, render, placement, constants })
             className: 'widget-message',
             kind: Kind.info,
             children: 'Message above the widget 5251881089236992',
+            hasBackground: true,
+        }),
+    });
+});
+```
+
+You can also use the `identifier` that can be added into the Style configuration on your widget while editing a content as a target for rendering customizations. The final target passed in into the `render` function should be `${targets.WIDGET}-${identifier}`.
+
+![Widget identifier](./assets/widget-identifier.png "Widget identifier")
+
+```js
+window.lumapps.customize(({ targets, components, render, placement, constants }) => {
+    const { Message } = components;
+    const { Kind } = constants;
+
+    render({
+        placement: placement.ABOVE,
+        target: 'widget-estimate-reading-time',
+        toRender: Message({
+            className: 'widget-message',
+            kind: Kind.info,
+            children: 'Message above the widget estimate-reading-time',
             hasBackground: true,
         }),
     });
@@ -1015,7 +1038,6 @@ Here are the compatible targets and their received context:
 
 #### [Organization chart context](./capabilities#organization-chart)
 
-
 | Option      | Description | Option type |
 |-------------| ----------- | ------------ |
  `user`  |  The currently displayed user's data.| `object`
@@ -1031,8 +1053,11 @@ Here are the compatible targets and their received context:
  `lastName`  |  The user's last name.| `string`
  `fullName`  |  The user's full name, formatted using the current user's locale.| `string`
 
+ #### [Widget](./capabilities#widget)
 
-
+| Option      | Description | Option type |
+|-------------| ----------- | ------------ |
+ `widget`       |  The currently displayed widget's data.| `object`
 
 ### session
 
@@ -1153,7 +1178,7 @@ Contains two `Promises`, one for the main navigation and another one for the sub
 | `navigationItem.title`          | Key/value where the key is a language id and the value is the title for the item in that language. This value contains the text that should be displayed on the navigation item. It takes into consideration the title of the item to display and if there is a specific override for that item's title       | `Record<string, string>` |
 | `navigationItem.slug`           | Key/value where the key is a language id and the value is the slug for the item in that language.         | `Record<string, string>` |
 
-### onNavigation
+### on navigation
 
 ```js
 window.lumapps.customize(({ onNavigation }) => {
@@ -1170,6 +1195,37 @@ window.lumapps.customize(({ onNavigation }) => {
 
 **Limitations and best practices**
 - This specific function should be used for tracking purposes as well as triggering other external services. It should not be used in combination with the `render` function, since this is not intended to work by design. Targets and placement should already help in rendering customizations on specific pages.
+
+### on widget rendered
+
+```js
+window.lumapps.customize(({ onWidgetRendered }) => {
+    onWidgetRendered((widget) => {
+        // Retrieve data from the widget and execute additional customisations.
+    });
+});
+```
+
+`onWidgetRendered` is a function that will be called each time a widget is rendered on the page. This callback is ideal if you need to trigger additional customisations for a specific widget
+across the entire platform, or if you need to communicate information between widgets.
+
+The `widget` parameter will have basic information of the rendered widget, plus additional information depending on the widget type
+
+`widget`
+
+| Option                   | Description                                                                                                         | Option type              |
+|--------------------------|---------------------------------------------------------------------------------------------------------------------|--------------------------|
+| `widget.widgetId`        | Unique ID for the rendered widget.                                                                                  | `string`                 |
+| `widget.widgetType`      | Widget type identifier                                                                                              | `string`                 |
+| `widget.htmlId`          | Widget identifier, which can be added via the editor, on the Style > Advanced > Identifier field                    | `string`                 |
+| `widget.cssClass`        | Widget css class, which includes a unique css class for the widget as well as the css class added via the editor    | `string`                 |
+| `widget.cssClass`        | Widget css class, which includes a unique css class for the widget as well as the css class added via the editor    | `string`                 |
+| `widget.html`            | If the widget is of type HTML, the HTML content will be available in this variable                                  | `string`                 |
+| `widget.items`           | If the widget renders a list of items, those items will be available in this variable                               | `object[]`               |
+
+**Limitations and best practices**
+- LumApps widgets are rendered in a lazy fashion, meaning that they are rendered depending whether they are visible on your current viewport or not. This means that when you visit a content, `onWidgetRendered` will be executed for the widgets that are visible on the viewport, and when the user starts scrolling, `onWidgetRendered` will be executed after those widgets have loaded.
+- `widget.items` can contain information that you can use in order to retrieve information from the rendered items on the given widget. However, it is worth mentioning that these items ARE NOT stable and can suffer changes at any time. Please consider this while developing any of your features. Only the properties documented in this section are considered stable.
 
 ### api
 
@@ -1259,6 +1315,7 @@ window.lumapps.getCurrentContent();
 | `customContentType` | Id of the current content's type.                     | `string`                                                                                                  |
 | `type`              | Type of content.                                      | `page` or `community`                                                                                     |
 | `isHomePage`        | Whether the current content is the home page or not.  | `boolean`                                                                                                 |
+| `loadedWidgets`     | List of widgets currently loaded on the page, grouped by their id  | `Record<string, object[]>`                                                                   |
 
 These are the current options that we support and maintain. Any other properties that might be returned when executing `window.lumapps.getCurrentContent()` are not guaranteed to be there in future releases of this API.
 
