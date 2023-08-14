@@ -1226,6 +1226,7 @@ The `widget` parameter will have basic information of the rendered widget, plus 
 **Limitations and best practices**
 - LumApps widgets are rendered in a lazy fashion, meaning that they are rendered depending whether they are visible on your current viewport or not. This means that when you visit a content, `onWidgetRendered` will be executed for the widgets that are visible on the viewport, and when the user starts scrolling, `onWidgetRendered` will be executed after those widgets have loaded.
 - `widget.items` can contain information that you can use in order to retrieve information from the rendered items on the given widget. However, it is worth mentioning that these items ARE NOT stable and can suffer changes at any time. Please consider this while developing any of your features. Only the properties documented in this section are considered stable.
+- This function is only supported on contents compatible with our next gen interface (`NGI`) system
 
 ### api
 
