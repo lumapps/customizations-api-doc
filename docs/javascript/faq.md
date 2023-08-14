@@ -13,9 +13,16 @@ grand_parent: Customizations API
 
 ### Self hosting
 
-If you are considering self hosting your assets on a separate CDN, here are some tips and notes that you might want to take into consideration:
-- Using the Customizations API with a self hosted asset is not supported as of right now. Customizations are extremely tied to the fact that they are added into the head of the page. You can definitely go ahead and create customizations and host them on your CDN, but we do not guarantee that they will work as expected and no support will be provided if this is the way you are adding customizations to your site.
-- As mentioned before, the Customizations API should be used only when no other customization options that LumApps provides are not enough. So if you need to host these customizations in another server, it would be worth considering what you are customizing and if you cannot achieve this with all the other customization options that LumApps provides.
+`Self hosting` means that you are uploading your JS customizations to an independent JS file, and then injecting these JS files into your site's Head (HTML) field using a `script` tag.
+
+If you are considering self hosting your assets, here are some tips and notes that you might want to take into consideration:
+- Using the Customizations API with a self hosted asset is not supported as of right now. Customizations are extremely tied to the fact that they are added into the head of the page directly, and they are considered into the life cycle of the application that way.
+- This is due to the fact that most customizations have the main goal to render an item on the most important real estate on the page, such as the top bar or the main navigation. Downloading the code that renders these items after the page has loaded or during that process will result in unexpected behavior, as well as poor user experiences, like items popping on the top bar after everything has loaded, items not displaying correctly, etc. This can get worse if your assets are not properly cached, or have a slow response time, slow user connections or computers, or a lot code is downloaded.
+- You can definitely go ahead and create customizations and host them on your CDN, but we do not guarantee that they will work as expected and no support will be provided if this is the way you are adding customizations to your site. New UI items that are added to either the top bar or the main navigation need to be added to the site's Head (HTML) field for them to be properly executed.
+- As mentioned before, the Customizations API should be used only when no other customization options that LumApps provides are not enough. So if you need to host these customizations in another server, it would be worth considering what you are customizing and if you cannot achieve this with all the other customization options that LumApps provides, such as the marketplace widgets or extensions.
+- Other alternatives involve:
+    - Split your JS files into code that adds UI items to the top bar or the main navigation, and JS files that are not needed for rendering, and heavily cache the first one. This might mitigate items popping around once that file is saved on the browser's cache.
+    - Instead of creating multiple JS files, move the code that adds the UI items to the site's Head (HTML) field and leave the rest of the code on your JS files. 
 
 ### Comments on code
 Adding comments to the deployed code is currently not supported. Comments add kilobytes to the overall page size which can potentially impact performance. So in order to avoid that performance overhead, comments are not supported and minifying the code is the best practice to follow.
