@@ -1238,7 +1238,7 @@ window.lumapps.customize(({ api }) => {
 });
 ```
 
-`api` is an [Axios](https://github.com/axios/axios) instance that allows executing XHR requests to both LumApps api's as well as external APIs. If you want to query LumApps's services, please take into consideration that URLs need to be relative rather than absolute. So for example, if your site's URL is `https://mysite.com` and you want to query the CONTENT API in order to retrieve a specific content, you will need to use `/_ah/api/lumsites/v1/content/get` rather than `https://mysite.com/_ah/api/lumsites/v1/content/get`.
+`api` is an [Axios](https://github.com/axios/axios) instance that allows executing XHR requests to both LumApps api's as well as external APIs. If you want to query LumApps's services, please take into consideration that URLs need to be relative rather than absolute. So for example, if your site's URL is `https://mysite.com` and you want to query the CONTENT API in order to retrieve a specific content, you will need to use `/content/get` rather than `https://mysite.com/_ah/api/lumsites/v1/content/get`.
 
 If you want to know which API you can use on LumApps, please take a look at the [API](https://apiv1.lumapps.com) documentation site.
 
