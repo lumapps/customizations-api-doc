@@ -11,11 +11,11 @@ grand_parent: Customizations API
 
 The main entrypoint of this API is the object ```window.lumapps```. On this object, the following functions are available:
 - [customize](#customize)
-- [setText](#setText)
+- [setText](#settext)
 - [disable](#disable)
-- [getCurrentContent](#getCurrentContent)
-- [getInternalUrl](#getInternalUrl)
-- [displayNotifications](#displayNotifications)
+- [getCurrentContent](#getcurrentcontent)
+- [getInternalUrl](#getinternalurl)
+- [displayNotification](#displaynotification)
 
 ## customize
 
@@ -1093,7 +1093,6 @@ Contains information related to the current device used to display LumApps.
 | `session.device.isWide`    | Whether the current device is a wide ( >= 1280px) device.                | `boolean`   |
 
 #### session.instance
-
 Contains information related to the current instance (also known as site).
 
 | Option                                     | Description                                                | Option type                                                                      |
@@ -1110,15 +1109,12 @@ Contains information related to the current instance (also known as site).
 | `session.instance.parent`                  | Parent id of the current instance.                         | `boolean`                                                                        |
 
 #### session.isConnected
-
 Boolean that shows whether the current user is connected or not.
 
 #### session.language
-
 Id of the language currently used to display the site for the current user.
 
 #### session.organization
-
 Contains information related to the current organization (also known as customer).
 
 | Option                                 | Description                                            | Option type |
@@ -1129,7 +1125,6 @@ Contains information related to the current organization (also known as customer
 | `session.organization.enabledFeatures` | List of enabled features for the current organization. | `string[]`  |
 
 #### session.user
-
 Contains information related to the current logged in user.
 
 | Option                             | Description                                                              | Option type                                                      |
@@ -1148,7 +1143,6 @@ Contains information related to the current logged in user.
 | `session.user.emails`              | Emails associated to the current user.                                   | `Email[]` where Email is `{ address: string; primary: boolean }` |
 
 #### session.navigations
-
 Contains two `Promises`, one for the main navigation and another one for the subnavigation, that allow to retrieve the navigation items displayed on the site. These promises are fulfilled once the data is retrieved by the LumApps web application.
 
 | Promise                     | Description                                                   |    Returned type |
@@ -1179,7 +1173,6 @@ Contains two `Promises`, one for the main navigation and another one for the sub
 | `navigationItem.slug`           | Key/value where the key is a language id and the value is the slug for the item in that language.         | `Record<string, string>` |
 
 ### on navigation
-
 ```js
 window.lumapps.customize(({ onNavigation }) => {
     onNavigation(({ currentPage }) => {
@@ -1197,7 +1190,6 @@ window.lumapps.customize(({ onNavigation }) => {
 - This specific function should be used for tracking purposes as well as triggering other external services. It should not be used in combination with the `render` function, since this is not intended to work by design. Targets and placement should already help in rendering customizations on specific pages.
 
 ### on widget rendered
-
 ```js
 window.lumapps.customize(({ onWidgetRendered }) => {
     onWidgetRendered((widget) => {
@@ -1229,7 +1221,6 @@ The `widget` parameter will have basic information of the rendered widget, plus 
 - This function is only supported on contents compatible with our next gen interface (`NGI`) system
 
 ### api
-
 ```js
 window.lumapps.customize(({ api }) => {
     api.get('...').then((response) => {
@@ -1243,7 +1234,6 @@ window.lumapps.customize(({ api }) => {
 If you want to know which API you can use on LumApps, please take a look at the [API](https://apiv1.lumapps.com) documentation site.
 
 ### setText
-
 ```js
 window.lumapps.setText('search-box', {
     en: 'Explore',
