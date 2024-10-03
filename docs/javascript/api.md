@@ -1308,7 +1308,7 @@ window.lumapps.getCurrentContent();
 | `isHomePage`        | Whether the current content is the home page or not.  | `boolean`                                                                                                 |
 | `loadedWidgets`     | List of widgets currently loaded on the page, grouped by their id  | `Record<string, object[]>`                                                                   |
 
-These are the current options that we support and maintain. Any other properties that might be returned when executing `window.lumapps.getCurrentContent()` are not guaranteed to be there in future releases of this API.
+These are the current options that we support and maintain. Any other properties that might be returned when executing `window.lumapps.getCurrentContent()` are not guaranteed to be there in future releases of this API nor do we guarantee that they return stable values between navigations and pages.
 
 ### getInternalUrl
 
