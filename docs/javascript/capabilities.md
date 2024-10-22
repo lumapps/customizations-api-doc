@@ -102,7 +102,7 @@ Target that allows customizing the surroundings of your LumApps application.
 |---------------|----------------------------------------------------------|
 | Target ID     | `app`                                                    |
 | Description   | Target that encapsulates the entire LumApps application. |
-| Placements    | Compatible with placements: `ABOVE`, `RIGHT`, `LEFT` *   |
+| Placements    | Compatible with placements: `RIGHT`, `LEFT` *   |
 | Disable       | No compatibility                                         |
 | Changing text | No compatibility                                         |
 
