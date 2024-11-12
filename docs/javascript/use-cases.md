@@ -813,3 +813,74 @@ window.lumapps.customize(({ api, components, render, constants, placement, targe
 });
 ```
 
+## Display an icon next to each search tab
+
+One way to make search tab easier to differenciate is to add an icon next to each tabs. By using search tab id, it is possible to add an icon on the left side of the tab label. Tab id can be retrieved from the search call response within the `tabs` array.
+
+```js
+  window.lumapps.customize(({ targets, components, render, placement }) => {
+    const { Icon } = components;
+    const tabs = [
+        { uid: 'all', icon: 'home-circle' },
+        { uid: 'drive', icon: 'google-drive' },
+    ];
+
+    render({
+        placement: placement.LEFT,
+        target: targets.SEARCH_TAB,
+        toRenderWithContext: id => {
+            // search in tabs object if an id matches with the id of a tab that should to have an icon
+            const tabToFormat = tabs.find(tab => tab.uid === id);
+            // if no match have been found return to avoid unnecessary warnings
+            if (tabToFormat === undefined) return;
+            return Icon({
+                icon: tabToFormat.icon,
+                className: 'search-filters-tab__custom-tab-icon',
+            });
+        },
+    });
+});
+```
+
+![Use case search tab with icon](./assets/use-case-search-tab-with-icon.png "Use case search tab with icon")
+
+## Customize not found page error message
+
+It is possible to customize not found error page using our design system components. If you only wish to change the error message while keeping the go back home button, you can retrieve the button props from the context and only change the rest of the page.
+
+```js
+window.lumapps.customize(({ targets, components, render, placement, constants }) => {
+    const { Message, Icon, FlexBox, Button } = components;
+    const { Orientation, Alignment, Kind, Size } = constants;
+
+    render({
+        placement: placement.REPLACE,
+        target: targets.NOT_FOUND_PAGE,
+        toRenderWithContext: ({ button }) =>
+            FlexBox({
+                children: [
+                    Icon({ size: Size.xl, hasShape: true, icon: 'file-question', key: 'icon' }),
+                    Message({
+                        kind: Kind.warning,
+                        hasBackground: true,
+                        children:
+                            'Something got wrong... If this is not coming from a wrong URL, please reach your administrator.',
+                        key: 'message',
+                        className: 'lumx-spacing-margin-top-big',
+                    }),
+                    Button({
+                        key: 'button',
+                        className: 'lumx-spacing-margin-top-big',
+                        ...button,
+                        leftIcon: 'home',
+                    }),
+                ],
+                orientation: Orientation.vertical,
+                vAlign: Alignment.center,
+            }),
+    });
+});
+```
+
+![Use case customized not found error page](./assets/use-case-customized-not-found-error-page.png "Use case customized not found error page")
+
