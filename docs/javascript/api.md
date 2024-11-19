@@ -78,6 +78,7 @@ And `configuration` is an object that allows these properties:
 | `targets.SUB_NAVIGATION_UI`      | Target id for the sub navigation's UI.                                              | [Documentation](./capabilities#sub-navigation-ui)      |
 | `targets.WIDGET`                 | Target id for a widget.                                                             | [Documentation](./capabilities#widget)                 |
 | `targets.USER_DIRECTORY`         | Target id for the user directory.                                                   | [Documentation](./capabilities#user-directory)         |
+| `targets.USER_PROFILE_ORG_CHART` | Target id for the user profile orgnaization chart                                   | [Documentation](./capabilities#organization-chart)     |
 
 #### widget target
 

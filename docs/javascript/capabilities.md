@@ -499,11 +499,33 @@ Target that allows customizing the settings icon displayed on the top bar.
 
 - [Adding new actions on the top bar](./use-cases#adding-new-actions-on-the-top-bar)
 
-### Settings dropdown
+### Settings
 
 Target that allows customizing the settings links displayed on the dropdown triggered by the settings button.
 
 ![Target settings dropdown](./assets/target-settings.png "Target settings dropdown")
+
+#### Compatibility
+
+|               |                                                                                                                  |
+|---------------|------------------------------------------------------------------------------------------------------------------|
+| Target ID     | `settings`                                                                                                       |
+| Description   | Target the settings dropdown.                                                                                    |
+| Placements    | Compatible with placements: `ABOVE`, `UNDER`.                                                                    |
+| Disable       | No compatibility                                                                                                 |
+| Changing text | No compatibility                                                                                                 |
+
+**Note:** Customizations added to this target will only be visible to those users that have access to one of the multiple settings displayed on the dropdown. If a user does not have access to this icon, the customizations will not be displayed
+
+#### Use cases
+
+- [Add links to other administration tools](./use-cases#add-links-to-other-administration-tools)
+
+### Profile
+
+Target that allows customizing a user's profile page.
+
+![Target profile](./assets/target-profile.png "Target profile")
 
 #### Compatibility
 
@@ -515,12 +537,9 @@ Target that allows customizing the settings links displayed on the dropdown trig
 | Disable       | No compatibility                                                                                                 |
 | Changing text | No compatibility                                                                                                 |
 
-
-**Note:** Customizations added to this target will only be visible to those users that have access to one of the multiple settings displayed on the dropdown. If a user does not have access to this icon, the customizations will not be displayed
-
 #### Use cases
 
-- [Add links to other administration tools](./use-cases#add-links-to-other-administration-tools)
+- [Display a message above all pages of a certain type](./use-cases#display-a-message-above-all-pages-of-a-certain-type)
 
 ### Sticky header
 
@@ -535,7 +554,7 @@ Target that allows deactivating that your site's header has a sticky behaviour, 
 | Target ID     | `sticky-header`                                  |
 | Description   | Target that allows disabling the sticky header * |
 | Placements    | No compatibility                                 |
-| Disable       | No compatibility                                 |
+| Disable       | Can be disabled. *                               |
 | Changing text | No compatibility                                 |
 
 **Note**: some extra CSS needs to be added in order to make this customization have the expected result
