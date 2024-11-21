@@ -254,6 +254,24 @@ Target that allows customizing the [directory](https://docs.lumapps.com/docs/exp
 
 - [Display a message above all pages of a certain type](./use-cases#display-a-message-above-all-pages-of-a-certain-type)
 
+### Error page
+
+Target that allows customizing the error pages.
+
+![Target Error page](./assets/target-error-pages.png 'Target Error page')
+
+#### Compatibility
+
+|               |                                                        |
+| ------------- | ------------------------------------------------------ |
+| Target ID     | `error-page`                                           |
+| Description   | Target for the error pages (all but 404) of your site. |
+| Placements    | Compatible with placements: `REPLACE`.                 |
+| Disable       | No compatibility                                       |
+| Changing text | No compatibility                                       |
+
+**Note:** Using `context` it is possible to retrieve the `redirectButtonProps` which includes href, emphasis and translated label, allowing to reuse the default redirect button (if any) of each error page.
+
 ### Favorites
 
 Target that allows customizing the [favorites directories](https://docs.lumapps.com/docs/explore-l8658525737805197modules) displayed on the top bar.
@@ -339,6 +357,28 @@ There are two targets that focus on the main navigation, each of them have a dif
 
 - [Hide the entire navigation on your site](./use-cases#hide-the-entire-navigation-on-your-site)
 - [Create a custom navigation for your site](./use-cases#create-a-custom-navigation-for-your-site)
+
+### Not found page
+
+Target that allows customizing the not found page (404 error code).
+
+![Target Not found page](./assets/target-error-pages.png 'Target Not found page')
+
+#### Compatibility
+
+|               |                                                    |
+| ------------- | -------------------------------------------------- |
+| Target ID     | `not-found-page`                                   |
+| Description   | Target for the not found pages (404) of your site. |
+| Placements    | Compatible with placements: `REPLACE`.             |
+| Disable       | No compatibility                                   |
+| Changing text | No compatibility                                   |
+
+**Note:** Using `context` it is possible to retrieve the `redirectButtonProps` which includes href, emphasis and translated label, allowing to reuse the default redirect button (if any) of each error page.
+
+#### Use cases
+
+- [Customize not found page error message](./use-cases#customize-not-found-page-error-message)
 
 ### Notifications button
 
@@ -477,7 +517,27 @@ Target that allows customizing the search custom metadata.
 | Disable       | No compatibility.                  |
 | Changing text | No compatibility.                  |
 
+### Search tab
+
+Target that allows customizing the search tab.
+
+![Target search tab](./assets/target-search-tab.png "Target search tab")
+
+#### Compatibility
+
+|               |                                    |
+| ------------- | -----------------------------------|
+| Target ID     | `search-tab`           |
+| Description   | Target the search tab. |
+| Placements    | Compatible with placements: `LEFT`                   |
+| Disable       | No compatibility.                  |
+| Changing text | No compatibility.                  |
+
+**Note:** Using `context` it is possible to retrieve the `id` of each tab displayed in the search result page.
+
 #### Use cases
+
+- [Display an icon next to each search tab](./use-cases#display-an-icon-next-to-each-search-tab)
 
 ### Settings button
 
