@@ -848,36 +848,83 @@ One way to make search tab easier to differenciate is to add an icon next to eac
 
 It is possible to customize not found error page using our design system components. If you only wish to change the error message while keeping the go back home button, you can retrieve the button props from the context and only change the rest of the page.
 
+### Without reusing the go back home button
+
 ```js
-window.lumapps.customize(({ targets, components, render, placement, constants }) => {
-    const { Message, Icon, FlexBox, Button } = components;
-    const { Orientation, Alignment, Kind, Size } = constants;
+  window.lumapps.customize(({ targets, components, render, placement, constants }) => {
+    const { Card, FlexBox, Thumbnail, Text } = components;
+    const { Orientation, Alignment, ThumbnailVariant, Size, ColorPalette, Typography } = constants;
 
     render({
         placement: placement.REPLACE,
         target: targets.NOT_FOUND_PAGE,
-        toRenderWithContext: ({ button }) =>
-            FlexBox({
-                children: [
-                    Icon({ size: Size.xl, hasShape: true, icon: 'file-question', key: 'icon' }),
-                    Message({
-                        kind: Kind.warning,
-                        hasBackground: true,
-                        children:
-                            'Something got wrong... If this is not coming from a wrong URL, please reach your administrator.',
-                        key: 'message',
-                        className: 'lumx-spacing-margin-top-big',
-                    }),
-                    Button({
-                        key: 'button',
-                        className: 'lumx-spacing-margin-top-big',
-                        ...button,
-                        leftIcon: 'home',
-                    }),
-                ],
-                orientation: Orientation.vertical,
-                vAlign: Alignment.center,
+        toRender: FlexBox({
+            children: Card({
+                children: FlexBox({
+                    orientation: Orientation.vertical,
+                                vAlign: Alignment.center,
+            hAlign: Alignment.center,
+                    gap: 'huge',
+                    children: [
+                        Text({
+                            typography: Typography.display1,
+                            children: 'Oh snap!'
+                        }),
+                        Text({
+                            typography: Typography.body1,
+                            children: 'Seems that the page you were looking for has been deleted or you do not have access to it.'
+                        })
+                    ]
+                }),
             }),
+            orientation: Orientation.vertical,
+            vAlign: Alignment.center,
+            hAlign: Alignment.center,
+            fillSpace: true,
+        }),
+    });
+});
+```
+
+```js
+window.lumapps.customize(({ targets, components, render, placement, constants }) => {
+    const { Card, FlexBox, Thumbnail, Text, Icon, Button, Message } = components;
+    const { Orientation, Alignment, ThumbnailVariant, Size, ColorPalette, Typography, Kind } = constants;
+
+    render({
+        placement: placement.REPLACE,
+        target: targets.NOT_FOUND_PAGE,
+        toRenderWithContext: ({ button }) => FlexBox({
+            children: Card({
+                children: FlexBox({
+                    orientation: Orientation.vertical,
+                                vAlign: Alignment.center,
+            hAlign: Alignment.center,
+                    gap: 'huge',
+                    children: [
+                        Icon({ size: Size.xl, hasShape: true, icon: 'file-question', key: 'icon' }),
+                        Message({
+                            kind: Kind.warning,
+                            hasBackground: true,
+                            children:
+                                'Something got wrong... If this is not coming from a wrong URL, please reach your administrator.',
+                            key: 'message',
+                            className: 'lumx-spacing-margin-top-big',
+                        }),
+                        Button({
+                            key: 'button',
+                            className: 'lumx-spacing-margin-top-big',
+                            ...button,
+                            leftIcon: 'home',
+                        }),
+                    ]
+                }),
+            }),
+            orientation: Orientation.vertical,
+            vAlign: Alignment.center,
+            hAlign: Alignment.center,
+            fillSpace: true,
+        }),
     });
 });
 ```
