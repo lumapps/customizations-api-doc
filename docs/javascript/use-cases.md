@@ -100,6 +100,8 @@ Here's the CSS used for this specific snippet, but you can use whatever CSS you 
 }
 ```
 
+**IMPORTANT:** This is just an example on how to use the Side navigation use case component. This is not a full working example, and adjustements might be needed for making this solution work on all pages while considering other LumApps use cases. You might encounter scenarios where the side navigation is overlapped with other components, and further CSS or JS code might be needed.
+
 ## Displaying a modal welcome window
 
 In order to display a message that shows up when the user enters the site, you can use a Dialog in order to get the user's attention right away, and display a message at the center of the page. For that, you can use the `Dialog` component in combination with the `RawHTML` component. A good use of this Dialog is to display on boarding messages to users that have never used your platform.
