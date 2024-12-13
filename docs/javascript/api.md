@@ -784,7 +784,7 @@ window.lumapps.customize(({ components }) => {
 
 #### MicroApp
 
-This component allows to display a [micro app](https://docs.lumapps.com/docs/ls/content/3975133065180467/knowledge-l40063457350627685) on any of the Customizations API extension points. This can be done by using the micro app's id (which can be retrieved from the [Installed extensions](https://docs.lumapps.com/docs/ls/content/5508517796380672/admin-l9568619807585214extensions#installed-extensions) section by browsing the Settings of each extension) and using it.
+This component allows to display a [micro app](https://docs.lumapps.com/docs/ls/content/3975133065180467/knowledge-l40063457350627685) on any of the Customizations API extension points. This can be done by using the micro app's id (which can be retrieved from the [Installed extensions](https://docs.lumapps.com/docs/ls/content/5508517796380672/admin-l9568619807585214extensions#installed-extensions) section by browsing the tab `Information` of each extension) and using it.
 
 For example, the following snippet will display a MicroApp above the Org. chart on the User's Profile.
 ```js
