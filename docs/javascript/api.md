@@ -33,9 +33,9 @@ Where `callback` is a function that will receive a set of `parameters` and retur
 | `constants`    | A group of variables that hold the different [constants](#constants) that can be used for creating components on your site.                                        |
 | `render`       | Function that allows rendering a component in a specific placement and target. See more details for this function [here](#render).                                 |
 | `session`      | Object that contains several values from the current session that can be useful when creating customizations. See more details for this function [here](#session). |
-| `on`  | Function that will be executed upon user actions or component rendrering. See more details for this function [here](#on)                          |
-| `onNavigation` (deprecated) | Function that will be executed once any widget in a content is rendered. See more details for this function [here](#on-widget-rendered)                          |
-| `onWidgetRendered` (deprecated) | Function that will be executed once the application has performed a navigation. See more details for this function [here](#on-navigation)                          |
+| `on`  | Function that will be executed upon user actions or component rendering. See more details for this function [here](#on)                          |
+| `onNavigation` (**deprecated**) | Function that will be executed once any widget in a content is rendered. See more details for this function [here](#on-widget-rendered)                          |
+| `onWidgetRendered` (**deprecated**) | Function that will be executed once the application has performed a navigation. See more details for this function [here](#on-navigation)                          |
 | `api`          | [Axios](https://github.com/axios/axios) instance that allows the developer to execute AJAX requests. See more details for this function [here](#axios-api)         |
 
 And `configuration` is an object that allows these properties:
@@ -52,10 +52,7 @@ And `configuration` is an object that allows these properties:
 | Target                           | Description                                                                         | Compatibilities                                        |
 |----------------------------------|-------------------------------------------------------------------------------------|--------------------------------------------------------|
 | `events.NAVIGATION`                    | Event id for user navigation events.                                                           | [Documentation](./capabilities#event-navigation)            |
-| `events.SEARCH_BOX`              | Event id for the user searchbox interaction events.                                  | [Documentation](./capabilities#event-searchbox)              |
-| `events.SEARCH_FILTER`              | Event id for the user filter interaction events on the search page.                                                   | [Documentation](./capabilities#event-search-filter)              |
-| `events.SEARCH_RESULT`                | Event id for the search result events triggered when user makes a search query.                                                      | [Documentation](./capabilities#event-search-result)                |
-| `events.SEARCH_SORT`     | Event id for the user sort interaction events on the search page. | [Documentation](./capabilities#event-search-sort)     |
+| `events.SEARCH`              | Event id for the user search page interaction events.                                  | [Documentation](./capabilities#event-search)              |
 | `events.WIDGET_RENDERED`      | Event id for the event triggered after rendering a widget.                                                | [Documentation](./capabilities#event-widget-rendered)      |
 
 ### targets
@@ -1202,60 +1199,61 @@ across the entire platform, or if you need to communicate information between cu
 
 The `props` parameter will have information depending on the event type. For a full list of all events, please refer to the [documentation](./api#events).
 
-### on navigation
-```js
-window.lumapps.customize(({ onNavigation }) => {
-    onNavigation(({ currentPage }) => {
-        sendTrack({
-            page: currentPage,
-        })
-    })
-});
-```
+#### events.SEARCH
 
-`onNavigation` is a function that will be called on each navigation. **This function is now deprecated**. Please `on` function with the [Navigation event](./api#eventsnavigation) instead.
+There are four main types of search events, all of them can ben easily identified using the `cause` props which can be found in all those events:
+-  `searchbox-interaction`
+-  `filter-interaction`
+-  `sort-interaction`
+-  `fetch-results`
 
-#### events.SEARCH_BOX
+**Limitation**: The search events are 100% compatible with our native search. For other search engine (Coveo, Google Cloud Search...), please note that they could be unstable or return incorrect values.  Please keep this in mind if you are in this situation.
+
+##### searchbox-interaction
 
 Event triggered each time the user interacts with the search box and displays suggestions. Please find below the props available for this event.
 
 | Option                   | Description                                                                                                         | Option type              |
 |--------------------------|---------------------------------------------------------------------------------------------------------------------|--------------------------|
-| `props.searchQuery`        | Query typed by the user.                                                                                  | `string`                 |
-| `widget.suggestions`      | Displayed suggestions. Contains label, counterClick, type and siteId                                                                                              | `object[]`                 |
+| `props.query`        | Query typed by the user.                                                                                  | `string`                 |
+| `props.suggestions`      | Displayed suggestions. Contains label, counterClick, type and siteId                                                                                              | `object[]`                 |
+| `props.cause`      | Cause of the search event. Always set to `searchbox-interaction`                                                                                              | `string`                 |
 
-#### events.SEARCH_FILTER
+##### filter-interaction
 
 Event triggered each time the user interacts with the search filters. Please find below the props available for this event.
 
 | Option                   | Description                                                                                                         | Option type              |
 |--------------------------|---------------------------------------------------------------------------------------------------------------------|--------------------------|
-| `props.filteredResultCount`        | Number of results available with the current filters applied (if any).                                                                  | `number`                 |
+| `props.filteredResultCount`        | Number of results available with the current filters applied (if any). If result count is not available -1 is returned.                                                                  | `number`                 |
 | `props.query`      | Current query used to display search results                                                              | `string`                 |
 | `props.filters`      | List of filters available. Contains id, label, value (all selected values) and choices (all available choices for a given filter)                                                              | `object[]`                 |
+| `props.cause`      | Cause of the search event. Always set to `filter-interaction`                                                                                              | `string`                 |
 
-#### events.SEARCH_RESULT
+##### fetch-results
 
-Event triggered each time the user makes a search query. Please find below the props available for this event.
+Event triggered each time the user makes a search query or change tabs. Please find below the props available for this event.
 
 | Option                   | Description                                                                                                         | Option type              |
 |--------------------------|---------------------------------------------------------------------------------------------------------------------|--------------------------|
-| `props.filteredResultCount`        | Number of results available with the current filters applied (if any).                                                                  | `number`                 |
+| `props.filteredResultCount`        | Number of results available with the current filters applied (if any). If result count is not available -1 is returned.                                                                 | `number`                 |
 | `props.query`      | Current query used to display search results                                                              | `string`                 |
-| `props.selectedFilters`      | List of filters currently applied. Contains id, label, value (all selected values) and choices (all available choice for a given filter)                                                              | `object[]`                 |
+| `props.filters`      | List of filters. Contains id, label, value (all selected values) and choices (all available choice for a given filter)                                                              | `object[]`                 |
 | `props.selectedTabInfo`      | Information for the current search tab. Contains label and totalResultCount                                                              | `object[]`                 |
 | `props.results`      | Information for the current search tab. Contains label and totalResultCount                                                              | `object[]`                 |
+| `props.cause`      | Cause of the search event. Always set to `fetch-results`                                                                                              | `string`                 |
 
-#### events.SEARCH_SORT
+##### sort-interaction
 
 Event triggered each time the user makes apply a new sort order. Please find below the props available for this event.
 
 | Option                   | Description                                                                                                         | Option type              |
 |--------------------------|---------------------------------------------------------------------------------------------------------------------|--------------------------|
-| `props.filteredResultCount`        | Number of results available with the current filters applied (if any).                                                                  | `number`                 |
+| `props.filteredResultCount`        | Number of results available with the current filters applied (if any). If result count is not available -1 is returned.                                                                 | `number`                 |
 | `props.query`      | Current query used to display search results                                                              | `string`                 |
 | `props.selectedSort`      | Curretn sort applied.                                                               | `string`                 |
 | `props.sortOrders`      | List of all sort values available. Contains a value and a label                                                              | `object[]`                 |
+| `props.cause`      | Cause of the search event. Always set to `sort-interaction`                                                                                              | `string`                 |
 
 #### events.WIDGET_RENDERED
 
@@ -1289,9 +1287,23 @@ It is an event that will be called on each navigation. It receives the following
 **Limitations and best practices**
 - This specific event should be used for tracking purposes as well as triggering other external services. It should not be used in combination with the `render` function, since this is not intended to work by design. Targets and placement should already help in rendering customizations on specific pages.
 
+### on navigation
+**IMPORTANT**
+`onNavigation` is a function that will be called on each navigation. **This function is now deprecated**. Please use `on` function with the [Navigation event](./api#eventsnavigation) instead.
+
+```js
+window.lumapps.customize(({ onNavigation }) => {
+    onNavigation(({ currentPage }) => {
+        sendTrack({
+            page: currentPage,
+        })
+    })
+});
+```
+
 ### on widget rendered
 
-`onWidgetRendered` is a function that will be called each time a widget is rendered on the page. **This function is now deprecated**. Please `on` function with the [Widget rendered event](./api#eventswidget_rendered) instead.
+**IMPORTANT** `onWidgetRendered` is a function that will be called each time a widget is rendered on the page. **This function is now deprecated**. Please use `on` function with the [Widget rendered event](./api#eventswidget_rendered) instead.
 
 ### api
 ```js

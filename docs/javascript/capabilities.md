@@ -730,28 +730,29 @@ In order to understand the possibilities that we have with this API, we need to 
 As an example, inserting the following code in your LumApps site will display an icon in the search tab based on the number of result type filters selected:
 
 ```js
-window.lumapps.customize(({ on, events, render, placement, targets, components }) => {
-    const { Icon } = components;
-    on(events.SEARCH_FILTER, (props) => {
-        const resultTypeFilter = props.filters.find((f) => f.id === '_metadata.type');
-        const tabs = [
-            {
-                uid: 'all',
-                icon: `numeric-${resultTypeFilter.value === undefined ? 0 : resultTypeFilter.value.length}-box-outline`,
-            },
-        ];
-        render({
-            placement: placement.LEFT,
-            target: targets.SEARCH_TAB,
-            toRenderWithContext: (id) => {
-                const tabToFormat = tabs.find((tab) => tab.uid === id);
-                if (tabToFormat === undefined) return;
-                return Icon({
-                    icon: tabToFormat.icon,
-                    className: 'search-filters-tab__custom-tab-icon',
-                });
-            },
-        });
+on(events.SEARCH, (props) => {
+    const resultTypeFilter = props.filters.find((f) => f.id === '_metadata.type');
+    const tabs = [
+        {
+            uid: 'all',
+            icon: `numeric-${
+                resultTypeFilter === undefined || resultTypeFilter.value === undefined
+                    ? 0
+                    : resultTypeFilter.value.length
+            }-box-outline`,
+        },
+    ];
+    render({
+        placement: placement.LEFT,
+        target: targets.SEARCH_TAB,
+        toRenderWithContext: (id) => {
+            const tabToFormat = tabs.find((tab) => tab.uid === id);
+            if (tabToFormat === undefined) return;
+            return Icon({
+                icon: tabToFormat.icon,
+                className: 'search-filters-tab__custom-tab-icon',
+            });
+        },
     });
 });
 ```
