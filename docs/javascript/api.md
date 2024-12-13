@@ -782,6 +782,39 @@ window.lumapps.customize(({ components }) => {
 
 **IMPORTANT:** The Dialog component is meant to be used only one time during the life cycle of a user's session. Meaning that this Dialog will be displayed, the user will close it, and the Dialog will not display again during the user's session. Reusing a Dialog and displaying it multiple times once it has already been closed is not supported.
 
+#### MicroApp
+
+This component allows to display a [micro app](https://docs.lumapps.com/docs/ls/content/3975133065180467/knowledge-l40063457350627685) on any of the Customizations API extension points. This can be done by using the micro app's id (which can be retrieved from the [Installed extensions](https://docs.lumapps.com/docs/ls/content/5508517796380672/admin-l9568619807585214extensions#installed-extensions) section by browsing the Settings of each extension) and using it.
+
+```js
+window.lumapps.customize(({ components, constants, render }) => {
+    const { MicroApp, Card } = components;
+
+    render({
+        placement: placement.ABOVE,
+        target: targets.USER_PROFILE_ORG_CHART,
+        toRenderWithContext: () => {
+            return Card({
+                className: 'user-about-page__article',
+                children: [
+                    MicroApp({
+                        id: '<your micro app id>'
+                    }),
+                ],
+            });
+        },
+    });
+})
+```
+
+`MicroApp` options:
+
+| Option      | Description                                                         | Is required? | Option type                             | Default Value |
+|-------------|---------------------------------------------------------------------|--------------|-----------------------------------------|---------------|
+| `id`        | The id of the micro app you want to display                         | Yes          | `string`                                | `undefined`   |
+
+**IMPORTANT:** Micro Apps can vary when it comes to their size, so it is imperative that, when integrating a Micro App with any of the Customizations API extension points, the developer makes sure that the used Micro App does not tamper with the default layout of the page and its surroundings. Is up to the developer to make sure that the customized feature does not impact LumApps's out-of-the-box functionalities.
+
 #### Skeletons
 
 Skeleton are primitives shapes which mimic a piece of content in a recognizable way. It communicate loading states. There are three variants:
