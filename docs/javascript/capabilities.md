@@ -717,3 +717,44 @@ Dynamic target that allows customizing the surroundings of a [widget](https://do
 #### Use cases
 
 - [Adding a customization to a widget](./use-cases#adding-a-customization-to-a-widget)
+
+## Listening to events
+
+The Customizations API allows, among other things, developers to listen predefined events on several sections of their sites. One of the goals of this API is to expose set of props based on user actions that can be easily used for instance for component customization in order to render additional components in some specific cases while reusing the Customization API `render` function.
+
+In order to understand the possibilities that we have with this API, we need to first define the different elements that compose a `Event`. These components are:
+- **Event**: This is the event that we want to use as reference for our customization. It is to be noted that there is a predefined list of events that are marked as [events](./api.md#events).
+
+- **Callback**: This is where props from a given event can be retrieved. Each events has its own set of props that can be used for rendering a custom components based on props values or send tracking events to collect data on users actions. Using this capabilities it becomes possible to have one component communicating with another one.
+
+As an example, inserting the following code in your LumApps site will display an icon in the search tab based on the number of result type filters selected:
+
+```js
+on(events.SEARCH, (props) => {
+    const resultTypeFilter = props.filters.find((f) => f.id === '_metadata.type');
+    const tabs = [
+        {
+            uid: 'all',
+            icon: `numeric-${
+                resultTypeFilter === undefined || resultTypeFilter.value === undefined
+                    ? 0
+                    : resultTypeFilter.value.length
+            }-box-outline`,
+        },
+    ];
+    render({
+        placement: placement.LEFT,
+        target: targets.SEARCH_TAB,
+        toRenderWithContext: (id) => {
+            const tabToFormat = tabs.find((tab) => tab.uid === id);
+            if (tabToFormat === undefined) return;
+            return Icon({
+                icon: tabToFormat.icon,
+                className: 'search-filters-tab__custom-tab-icon',
+            });
+        },
+    });
+});
+```
+
+![Customization using event Example](./assets/event-example.png "Customization Using Event Example")
