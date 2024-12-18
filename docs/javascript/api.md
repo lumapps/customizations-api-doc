@@ -799,7 +799,7 @@ This component allows to display a [micro app](https://docs.lumapps.com/docs/ls/
 
 For example, the following snippet will display a MicroApp above the Org. chart on the User's Profile.
 ```js
-window.lumapps.customize(({ components, constants, render }) => {
+window.lumapps.customize(({ components, constants, render, placement }) => {
     const { MicroApp, Card } = components;
 
     render({
