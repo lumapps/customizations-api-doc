@@ -443,7 +443,7 @@ window.lumapps.customize(({ components, constants }) => {
 | `fillSpace`   | Boolean that determines whether the "content filling space" is enabled or not.               | No           | `boolean`                               | `false`       |
 | `noShrink`    | Boolean that determines whether the "content shrink" is disabled or not.                     | No           | `boolean`                               | `false`       |
 | `wrap`        | Boolean that determines whether the "flex wrap" is enabled or not.                           | No           | `boolean`                               | `false`       |
-| `gapSize`     | Boolean that determines whether the "flex wrap" is enabled or not.                           | No           | `boolean`                               | `undefined`   |
+| `gap`         | Gap space between flexbox items.                                                             | No           | "Size.big", "Size.tiny", "Size.regular", "Size.medium", "Size.huge"    [Size](#size)                            | `undefined`   |
 | `hAlign`      | Flex horizontal alignment.                                                                   | No           | [Alignment](#alignment)                 | `undefined`   |
 | `vAlign`      | Flex vertical alignment.                                                                     | No           | [Alignment](#alignment)                 | `undefined`   |
 
