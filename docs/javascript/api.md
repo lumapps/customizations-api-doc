@@ -51,9 +51,9 @@ And `configuration` is an object that allows these properties:
 
 | Target                           | Description                                                                         | Compatibilities                                        |
 |----------------------------------|-------------------------------------------------------------------------------------|--------------------------------------------------------|
-| `events.NAVIGATION`                    | Event id for user navigation events.                                                           | [Documentation](./capabilities#event-navigation)            |
-| `events.SEARCH`              | Event id for the user search page interaction events.                                  | [Documentation](./capabilities#event-search)              |
-| `events.WIDGET_RENDERED`      | Event id for the event triggered after rendering a widget.                                                | [Documentation](./capabilities#event-widget-rendered)      |
+| `events.NAVIGATION`              | Event id for user navigation events.                                                | [Documentation](#event-navigation)       |
+| `events.SEARCH`                  | Event id for the user search page interaction events.                               | [Documentation](#event-search)           |
+| `events.WIDGET_RENDERED`         | Event id for the event triggered after rendering a widget.                          | [Documentation](#event-widget-rendered)  |
 
 ### targets
 
@@ -74,15 +74,15 @@ And `configuration` is an object that allows these properties:
 | `targets.HEADER`                 | Target id for the site's header.                                                    | [Documentation](./capabilities#header)                 |
 | `targets.LOGO`                   | Target id for the site's logo.                                                      | [Documentation](./capabilities#logo)                   |
 | `targets.NAVIGATION`             | Target id for the main navigation.                                                  | [Documentation](./capabilities#navigation)             |
-| `targets.NAVIGATION_UI`          | Target id for the main navigation's UI.                                             | [Documentation](./capabilities#navigation)            |
-| `targets.NOT_FOUND_PAGE`         | Target id for the not found error page (error code 404).                            | [Documentation](./capabilities#not-found-page)                 |
+| `targets.NAVIGATION_UI`          | Target id for the main navigation's UI.                                             | [Documentation](./capabilities#navigation)             |
+| `targets.NOT_FOUND_PAGE`         | Target id for the not found error page (error code 404).                            | [Documentation](./capabilities#not-found-page)         |
 | `targets.NOTIFICATIONS_BUTTON`   | Target id for the notifications center component.                                   | [Documentation](./capabilities#header)                 |
 | `targets.PAGE`                   | Target id for all pages.                                                            | [Documentation](./capabilities#page)                   |
 | `targets.PROFILE`                | Target id for the profile page.                                                     | [Documentation](./capabilities#profile)                |
 | `targets.SEARCH`                 | Target id for the search page.                                                      | [Documentation](./capabilities#search)                 |
 | `targets.SEARCH_BOX`             | Target id for the search box.                                                       | [Documentation](./capabilities#search-box)             |
 | `targets.SEARCH_CUSTOM_METADATA` | Target id for search custom metadata.                                               | [Documentation](./capabilities#search-custom-metadata) |
-| `targets.SEARCH_TAB` | Target id for search tab.                                                                          | [Documentation](./capabilities#search-tab) |
+| `targets.SEARCH_TAB` | Target id for search tab.                                                                       | [Documentation](./capabilities#search-tab) |
 | `targets.SETTINGS`               | Target id for the settings menu.                                                    | [Documentation](./capabilities#settings)               |
 | `targets.SETTINGS_BUTTON`        | Target id for the settings icon on the top bar.                                     | [Documentation](./capabilities#settings-button)        |
 | `targets.STICKY_HEADER`          | Target id for the sticky header.                                                    | [Documentation](./capabilities#sticky-header)          |
@@ -1233,7 +1233,7 @@ across the entire platform, or if you need to communicate information between cu
 
 The `props` parameter will have information depending on the event type. For a full list of all events, please refer to the [documentation](./api#events).
 
-#### events.SEARCH
+#### Event Search
 
 There are four main types of search events, all of them can ben easily identified using the `cause` props which can be found in all those events:
 -  `searchbox-interaction`
@@ -1289,7 +1289,7 @@ Event triggered each time the user makes apply a new sort order. Please find bel
 | `props.sortOrders`      | List of all sort values available. Contains a value and a label                                                              | `object[]`                 |
 | `props.cause`      | Cause of the search event. Always set to `sort-interaction`                                                                                              | `string`                 |
 
-#### events.WIDGET_RENDERED
+#### Event Widget Rendered
 
 Event triggered each time a widget is rendered on the page. This event is ideal if you need to trigger additional customisations for a specific widget
 across the entire platform, or if you need to communicate information between widgets.
@@ -1313,7 +1313,7 @@ The `widget` parameter will have basic information of the rendered widget, plus 
 - `widget.items` can contain information that you can use in order to retrieve information from the rendered items on the given widget. However, it is worth mentioning that these items ARE NOT stable and can suffer changes at any time. Please consider this while developing any of your features. Only the properties documented in this section are considered stable.
 - This event is only supported on contents compatible with our next gen interface (`NGI`) system
 
-#### events.NAVIGATION
+#### Event Navigation
 
 It is an event that will be called on each navigation. It receives the following parameters:
 - `currentPage`: Id of the current page.

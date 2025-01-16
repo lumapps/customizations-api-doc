@@ -14,7 +14,6 @@ When it comes to customizing your site using CSS, LumApps provides a set of func
 ## Prerequisites
 - In order to add customizations to your site, basic knowledge of [CSS](https://developer.mozilla.org/en-US/docs/Glossary/CSS) is mandatory.
 - In order to deploy customizations into your site, you will need to be the administrator of the site where you want to add these customizations.
-- In order to follow this guide and use the examples documented below, your platform needs to have the new top bar activated. Without it, customizations will not work as expected. Please reach out to your LumApps representative if you still do not have the new top bar activated.
 - For development, we strongly suggest using the following tools in order to have a proper development environment:
     - [Visual Studio Code](https://code.visualstudio.com/) for creating and editing code;
     - [Git](https://git-scm.com/) for properly versioning the customizations that you will be creating.
