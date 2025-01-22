@@ -25,18 +25,21 @@ window.lumapps.customize(callback, configuration)
 
 Where `callback` is a function that will receive a set of `parameters` and returns `void`. These are the `parameters` that the `callback` function expects:
 
-| Parameter      | Description                                                                                                                                                        |
-|----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `targets`      | The different [targets](#targets) that can be customized on your site.                                                                                             |
-| `placement`    | The different [placements](#placements) that can be used for positioning components on your site.                                                                  |
-| `components`   | A group of [components](#components) that can be used for customizing your site.                                                                                   |
-| `constants`    | A group of variables that hold the different [constants](#constants) that can be used for creating components on your site.                                        |
-| `render`       | Function that allows rendering a component in a specific placement and target. See more details for this function [here](#render).                                 |
-| `session`      | Object that contains several values from the current session that can be useful when creating customizations. See more details for this function [here](#session). |
-| `on`  | Function that will be executed upon user actions or component rendering. See more details for this function [here](#on)                          |
-| `onNavigation` (**deprecated**) | Function that will be executed once any widget in a content is rendered. See more details for this function [here](#on-widget-rendered)                          |
-| `onWidgetRendered` (**deprecated**) | Function that will be executed once the application has performed a navigation. See more details for this function [here](#on-navigation)                          |
-| `api`          | [Axios](https://github.com/axios/axios) instance that allows the developer to execute AJAX requests. See more details for this function [here](#axios-api)         |
+| Parameter          | Description                                                                                                                                                        |
+|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `targets`          | The different [targets](#targets) that can be customized on your site.                                                                                             |
+| `placement`        | The different [placements](#placements) that can be used for positioning components on your site.                                                                  |
+| `components`       | A group of [components](#components) that can be used for customizing your site.                                                                                   |
+| `constants`        | A group of variables that hold the different [constants](#constants) that can be used for creating components on your site.                                        |
+| `render`           | Function that allows rendering a component in a specific placement and target. See more details for this function [here](#render).                                 |
+| `session`          | Object that contains several values from the current session that can be useful when creating customizatio ns. See more details for this function [here](#session) |
+| `on`               | Function that will be executed upon user actions or component rendering. See more details for this function [here](#on)                                            |
+| `pushEvent`        | Function that generates custom events. See more details for this function [here](#pushEvent)                                                                       |
+| `getLatestEvents`  | Function that retrieves the latest events generated on the application. See more details for this function [here](#getLatestEvents)                                |
+| `state`            | Object that provides state management capabilities. See more details for this function [here](#state)                                                              |
+| `onNavigation` (**deprecated**) | Function that will be executed once any widget in a content is rendered. See more details for this function [here](#on-widget-rendered)               |
+| `onWidgetRendered` (**deprecated**) | Function that will be executed once the application has performed a navigation. See more details for this function [here](#on-navigation)         |
+| `api`          | [Axios](https://github.com/axios/axios) instance that allows the developer to execute AJAX requests. See more details for this function [here](#axios-api)             |
 
 And `configuration` is an object that allows these properties:
 
@@ -51,9 +54,9 @@ And `configuration` is an object that allows these properties:
 
 | Target                           | Description                                                                         | Compatibilities                                        |
 |----------------------------------|-------------------------------------------------------------------------------------|--------------------------------------------------------|
-| `events.NAVIGATION`              | Event id for user navigation events.                                                | [Documentation](#event-navigation)       |
-| `events.SEARCH`                  | Event id for the user search page interaction events.                               | [Documentation](#event-search)           |
-| `events.WIDGET_RENDERED`         | Event id for the event triggered after rendering a widget.                          | [Documentation](#event-widget-rendered)  |
+| `events.NAVIGATION`              | Event id for user navigation events.                                                | [Documentation](#event-navigation)                     |
+| `events.SEARCH`                  | Event id for the user search page interaction events.                               | [Documentation](#event-search)                         |
+| `events.WIDGET_RENDERED`         | Event id for the event triggered after rendering a widget.                          | [Documentation](#event-widget-rendered)                |
 
 ### targets
 
@@ -1222,8 +1225,8 @@ Contains two `Promises`, one for the main navigation and another one for the sub
 ### on
 ```js
 window.lumapps.customize(({ on, events }) => {
-    on(events, (props) => {
-        // Retrieve props based on a specific event and execute additional customisations.
+    on(events, (data) => {
+        // Retrieve data based on a specific event and execute additional customisations.
     });
 });
 ```
@@ -1231,7 +1234,7 @@ window.lumapps.customize(({ on, events }) => {
 `on` is a function that will be called each time a user perform a specific action or a component is rendered depending on the event. This callback is ideal if you need to trigger additional customisations based on user actions
 across the entire platform, or if you need to communicate information between customizable components.
 
-The `props` parameter will have information depending on the event type. For a full list of all events, please refer to the [documentation](./api#events).
+The `data` parameter will have information depending on the event type. For a full list of all events, please refer to the [documentation](./api#events).
 
 #### Event Search
 
@@ -1320,6 +1323,74 @@ It is an event that will be called on each navigation. It receives the following
 
 **Limitations and best practices**
 - This specific event should be used for tracking purposes as well as triggering other external services. It should not be used in combination with the `render` function, since this is not intended to work by design. Targets and placement should already help in rendering customizations on specific pages.
+
+### pushEvent
+The `pushEvent` function allows to generate custom events so that they can be retrieved using the [on](#on) callback.
+
+```js
+window.lumapps.customize(({ pushEvent }) => {
+    pushEvent('custom event', { test: '123' });
+});
+```
+
+```js
+window.lumapps.customize(({ on }) => {
+    on('custom event', (data) => {
+        console.log('custom event registered', data);
+    });
+});
+```
+
+This function has two parameters:
+- id: this is the id of the event, that will be used to retrieve said event afterwards
+- data: object or value that will be send over with the event, so that it can be retrieved on the `on` callback.
+
+### getLatestEvents
+The function `getLatestEvents` retrieves the last 10 events that occurred on the user's current session. This is useful when you want to subscribe to a specific event but the code that adds the subscription is executed AFTER the event has occurred. With this, a developer would be able to retrieve the latest events that they might have missed.
+
+```js
+window.lumapps.customize(({ getLatestEvents }) => {
+    const events = getLatestEvents(); // retrieves all latest events
+});
+```
+
+You can also filter the list of events by providing a specific type
+```js
+window.lumapps.customize(({ getLatestEvents }) => {
+    const events = getLatestEvents('navigation'); // retrieves all latest events that have the navigation type.
+});
+```
+
+Some precisions:
+- Only the last 10 events will be retrieved, previous events will be dismissed and cannot be retrieved
+- Custom and LumApps events are both supported
+- Events come with a timestamp so that developers can figure out when did they occur
+
+**IMPORTANT**
+This only retrieves the events from the current session, so the data will be lost once the user leaves the current page, or the user navigates between applications (including navigations between legacy and NGI pages). Events will only be saved if the user remains on the same application.
+
+### state
+The state management API allows developers no longer need to manage state on their end. It has two methods:
+
+`state.set` allows to save either a value or an object in memory, associating it to a specific key. Key needs to be a string.
+
+```js
+window.lumapps.customize(({ state }) => {
+   state.set('key', 'value');
+});
+```
+
+`state.get` allows to retrieve a previously saved value or an object in memory, associated to a specific key. Key needs to be a string.
+
+```js
+window.lumapps.customize(({ state }) => {
+    state.get('key'); // returns 'value'
+});
+```
+
+Some precisions on this API:
+- This only saves in-memory state, so the data will be lost once the user leaves the current page, or the user navigates between applications (including navigations between legacy and NGI pages). State will only be saved if the user remains on the same application.
+- It is also worth mentioning that this state is shared across customizations.
 
 ### on navigation
 **IMPORTANT**
