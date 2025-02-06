@@ -85,6 +85,7 @@ And `configuration` is an object that allows these properties:
 | `targets.SEARCH`                 | Target id for the search page.                                                      | [Documentation](./capabilities#search)                 |
 | `targets.SEARCH_BOX`             | Target id for the search box.                                                       | [Documentation](./capabilities#search-box)             |
 | `targets.SEARCH_CUSTOM_METADATA` | Target id for search custom metadata.                                               | [Documentation](./capabilities#search-custom-metadata) |
+| `targets.SEARCH_RESULT_ICON`     | Target id for icons of the search result page and quick search.                     | [Documentation](./capabilities#search-result-icon)                 |
 | `targets.SEARCH_TAB` | Target id for search tab.                                                                       | [Documentation](./capabilities#search-tab) |
 | `targets.SETTINGS`               | Target id for the settings menu.                                                    | [Documentation](./capabilities#settings)               |
 | `targets.SETTINGS_BUTTON`        | Target id for the settings icon on the top bar.                                     | [Documentation](./capabilities#settings-button)        |

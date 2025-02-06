@@ -933,3 +933,81 @@ window.lumapps.customize(({ targets, components, render, placement, constants })
 
 ![Use case customized not found error page](./assets/use-case-customized-not-found-error-page.png "Use case customized not found error page")
 
+
+## Replace icons for a specific result type
+
+The following script uses the target `targets.SEARCH_RESULT_ICON` and the placement `placements.REPLACE` in order to replace the default icon used for a specific entity (here, `posts` with a `message-text-outline` default icon) by another mdi icon (`typewriter`).
+
+```js
+window.lumapps.customize(({ targets, components, render, placement }) => {
+    const { SearchThumbnail } = components;
+    render({
+        placement: placement.REPLACE,
+        target: targets.SEARCH_RESULT_ICON,
+        toRenderWithContext: ({ currentProps, entityType, mimeType }) => {
+            return SearchThumbnail({
+                ...currentProps,
+                icon: entityType === 'post' ? 'typewriter' : currentProps.icon,
+            });
+        },
+    });
+});
+```
+
+![Search result page with icons replaced by the typewriter icon](./assets/search-results-customized-post-icon.png "Search result page with icons replaced by the typewriter icon")
+
+![Quick search opened with icons replaced by the typewriter icon](./assets/quick-search-customized-post-icon.png "Quick search opened with icons replaced by the typewriter icon")
+
+## Replace icons with a custom svg
+
+The following script uses the target `targets.SEARCH_RESULT_ICON` and the placement `placements.REPLACE` in order to replace the default icon used for a specific entity (here, `posts` with a `message-text-outline` default icon) by a custom svg path.
+
+**Note:** By default, search results icons are displayed using the `icon` prop that uses mdi names. In order to override this and use a custom svg, we need to set this prop to `null` and use `iconPath` instead.
+
+```js
+window.lumapps.customize(({ targets, components, render, placement }) => {
+    const { SearchThumbnail } = components;
+    render({
+        placement: placement.REPLACE,
+        target: targets.SEARCH_RESULT_ICON,
+        toRenderWithContext: ({ currentProps, entityType }) => {
+            return SearchThumbnail({
+                ...currentProps,
+              	icon: entityType === 'post' ? null : currentProps.icon,
+                iconPath: entityType === 'post' ? 'M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z' : undefined,
+            });
+        },
+    });
+});
+
+
+```
+
+![Search result page with icons replaced by a custom svg](./assets/search-results-icon-custom-svg.png "Search result page with icons replaced by a custom svg")
+![Quick search opened with icons replaced by a custom svg](./assets/quick-search-icon-custom-svg.png "Quick search opened with icons replaced by a custom svg")
+
+## Replace icons of documents with a specific mimetype
+
+The following script uses the target `targets.SEARCH_RESULT_ICON` and the placement `placements.REPLACE` in order to replace the default icon used documents with a specific mimetype by another mdi icon.
+
+```js
+window.lumapps.customize(({ targets, components, render, placement }) => {
+    const { SearchThumbnail } = components;
+    render({
+        placement: placement.REPLACE,
+        target: targets.SEARCH_RESULT_ICON,
+        toRenderWithContext: ({ currentProps, entityType, mimeType }) => {
+            const isPdf = mimeType === 'application/pdf';
+            return SearchThumbnail({
+                ...currentProps,
+              	icon: isPdf ? 'file-pdf' : currentProps.icon,
+            });
+        },
+    });
+});
+
+```
+
+![Search result page with icons replaced by a custom svg](./assets/search-results-mimetype-custom-icon.png "Search result page with icons replaced by a custom svg")
+
+![Quick search opened with icons replaced by a custom svg](./assets/quick-search-mimetype-custom-icon.png "Quick search opened with icons replaced by a custom svg")
