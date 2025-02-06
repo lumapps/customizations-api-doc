@@ -517,6 +517,35 @@ Target that allows customizing the search custom metadata.
 | Disable       | No compatibility.                  |
 | Changing text | No compatibility.                  |
 
+### Search result icon
+
+Target that allows customizing icons of the search results of both the search page and quick search.
+
+![Search results icons](./assets/search-icon-custo-doc.png "Search results icons")
+
+![Quick search result icons](./assets/quick-search-icon-custo-doc.png "Quick search result icons")
+
+#### Compatibility
+
+|               |                                        |
+| ------------- | -------------------------------------- |
+| Target ID     | `search-result-icon`                   |
+| Description   | Target the search result icon.         |
+| Placements    | Compatible with placements: `REPLACE`. |
+| Disable       | No compatibility.                      |
+| Changing text | No compatibility.                      |
+
+**Note:** Using `context` it is possible to retrieve data of the search result being customized as well as its type. 
+This allows specific customization depending on result type / data etc...
+In addition, a `SearchThumbnail` component is available to be as close as possible to the current implementation.
+
+#### Use cases
+
+- [Replace icons for a specific result type](./use-cases#replace-icons-for-a-specific-result-type)
+- [Replace icons with a custom svg](./use-cases#replace-icons-with-a-custom-svg)
+- [Replace icons of documents with a specific mimetype](./use-cases#replace-icons-of-documents-with-a-specific-mimetype)
+
+
 ### Search tab
 
 Target that allows customizing the search tab.
