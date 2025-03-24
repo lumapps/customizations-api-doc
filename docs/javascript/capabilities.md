@@ -462,6 +462,39 @@ Target that allows customizing the [user directory](https://docs.lumapps.com/doc
 
 - [Display a message above all pages of a certain type](./use-cases#display-a-message-above-all-pages-of-a-certain-type)
 
+### User card fields
+
+Target that allows customizing a user's card fields section, adding additional fields below the current existing ones.
+
+![Target profile](./assets/target-user-card-fields.png "Target profile")
+
+#### Compatibility
+
+|               |                                                                                                                  |
+|---------------|------------------------------------------------------------------------------------------------------------------|
+| Target ID     | `user-card-fields`                                                                                               |
+| Description   | Target the user card fields.                                                                                     |
+| Placements    | Compatible with placements: `UNDER`.                                                                             |
+| Disable       | No compatibility                                                                                                 |
+| Changing text | No compatibility                                                                                                 |
+
+### User profile header fields
+
+Target that allows customizing a user's profile header fields section, adding additional fields the current existing ones.
+
+![Target profile](./assets/target-user-profile-header-fields.png "Target profile")
+
+#### Compatibility
+
+|               |                                                                                                                  |
+|---------------|------------------------------------------------------------------------------------------------------------------|
+| Target ID     | `user-profile-header-fields`                                                                                     |
+| Description   | Target the user profile header fields.                                                                           |
+| Placements    | Compatible with placements: `ABOVE`, `UNDER`, `RIGHT`, `LEFT`                                                    |
+| Disable       | No compatibility                                                                                                 |
+| Changing text | No compatibility                                                                                                 |
+
+
 ### Search
 
 Target that allows customizing the [search page](https://docs.lumapps.com/docs/explore-l045373566110773145search/explore-l044925657249748285search).
