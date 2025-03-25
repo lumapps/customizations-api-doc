@@ -815,6 +815,39 @@ window.lumapps.customize(({ api, components, render, constants, placement, targe
 });
 ```
 
+## Display a badge next to a user's profile field
+
+Using the target `USER_PROFILE_HEADER_FIELDS`, we can display custom information about the user, that can be retrieved from an external service.
+
+For example, 
+
+```js
+window.lumapps.customize(({ targets, components, render, placement, constants }) => {
+    const { Text } = components;
+    const onlineUsers = {}; // information retrieved from an external service.
+
+    render({
+        placement: placement.LEFT,
+        target: targets.USER_PROFILE_HEADER_FIELDS,
+        toRenderWithContext: (context) => {
+            if (onlineUsers[context.user.uid]) {
+                return Text({
+                    color: 'green',
+                    children: 'Online',
+                });
+            }
+
+            return Text({
+                color: 'red',
+                children: 'Offline',
+            });
+        },
+    });
+});
+```
+
+![Use case user profile fields](./assets/use-case-user-profile-fields.png "Use case user profile fields")
+
 ## Display an icon next to each search tab
 
 One way to make search tab easier to differenciate is to add an icon next to each tabs. By using search tab id, it is possible to add an icon on the left side of the tab label. Tab id can be retrieved from the search call response within the `tabs` array.

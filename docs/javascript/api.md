@@ -62,39 +62,41 @@ And `configuration` is an object that allows these properties:
 
 `targets` is a key/value object that holds the available targets that can be customized on LumApps. This variable allows developers to avoid figuring out which ids to use in order to customize a specific target, and it also defines the available targets that can be customized. As of now, these are the values for this object:
 
-| Target                           | Description                                                                         | Compatibilities                                        |
-|----------------------------------|-------------------------------------------------------------------------------------|--------------------------------------------------------|
-| `targets.APP`                    | Target id for application                                                           | [Documentation](./capabilities#application)            |
-| `targets.BOOKMARKS`              | Target id for the bookmarks/app launcher component                                  | [Documentation](./capabilities#bookmarks)              |
-| `targets.COMMUNITY`              | Target id for the community pages                                                   | [Documentation](./capabilities#community)              |
-| `targets.CONTENT`                | Target id for the content page                                                      | [Documentation](./capabilities#content)                |
-| `targets.CONTEXTUAL_ACTIONS`     | Target id for the contextual actions menu on the right hand side of a content page. | [Documentation](./capabilities#contextual-actions)     |
-| `targets.CONTRIBUTION_MENU`      | Target id for the contribution menu.                                                | [Documentation](./capabilities#contribution-menu)      |
-| `targets.CONTRIBUTION_BUTTON`    | Target id for the contribution button.                                              | [Documentation](./capabilities#contribution-button)    |
-| `targets.ERROR_PAGE`             | Target id for the error pages.                                                      | [Documentation](./capabilities#error-page)             |
-| `targets.FAVORITES`              | Target id for the favorite directories.                                             | [Documentation](./capabilities#favorites)              |
-| `targets.DIRECTORY`              | Target id for the directory.                                                        | [Documentation](./capabilities#directory)              |
-| `targets.HEADER`                 | Target id for the site's header.                                                    | [Documentation](./capabilities#header)                 |
-| `targets.LOGO`                   | Target id for the site's logo.                                                      | [Documentation](./capabilities#logo)                   |
-| `targets.NAVIGATION`             | Target id for the main navigation.                                                  | [Documentation](./capabilities#navigation)             |
-| `targets.NAVIGATION_UI`          | Target id for the main navigation's UI.                                             | [Documentation](./capabilities#navigation)             |
-| `targets.NOT_FOUND_PAGE`         | Target id for the not found error page (error code 404).                            | [Documentation](./capabilities#not-found-page)         |
-| `targets.NOTIFICATIONS_BUTTON`   | Target id for the notifications center component.                                   | [Documentation](./capabilities#header)                 |
-| `targets.PAGE`                   | Target id for all pages.                                                            | [Documentation](./capabilities#page)                   |
-| `targets.PROFILE`                | Target id for the profile page.                                                     | [Documentation](./capabilities#profile)                |
-| `targets.SEARCH`                 | Target id for the search page.                                                      | [Documentation](./capabilities#search)                 |
-| `targets.SEARCH_BOX`             | Target id for the search box.                                                       | [Documentation](./capabilities#search-box)             |
-| `targets.SEARCH_CUSTOM_METADATA` | Target id for search custom metadata.                                               | [Documentation](./capabilities#search-custom-metadata) |
-| `targets.SEARCH_RESULT_ICON`     | Target id for icons of the search result page and quick search.                     | [Documentation](./capabilities#search-result-icon)                 |
-| `targets.SEARCH_TAB` | Target id for search tab.                                                                       | [Documentation](./capabilities#search-tab) |
-| `targets.SETTINGS`               | Target id for the settings menu.                                                    | [Documentation](./capabilities#settings)               |
-| `targets.SETTINGS_BUTTON`        | Target id for the settings icon on the top bar.                                     | [Documentation](./capabilities#settings-button)        |
-| `targets.STICKY_HEADER`          | Target id for the sticky header.                                                    | [Documentation](./capabilities#sticky-header)          |
-| `targets.SUB_NAVIGATION`         | Target id for the sub navigation.                                                   | [Documentation](./capabilities#sub-navigation)         |
-| `targets.SUB_NAVIGATION_UI`      | Target id for the sub navigation's UI.                                              | [Documentation](./capabilities#sub-navigation-ui)      |
-| `targets.WIDGET`                 | Target id for a widget.                                                             | [Documentation](./capabilities#widget)                 |
-| `targets.USER_DIRECTORY`         | Target id for the user directory.                                                   | [Documentation](./capabilities#user-directory)         |
-| `targets.USER_PROFILE_ORG_CHART` | Target id for the user profile orgnaization chart                                   | [Documentation](./capabilities#organization-chart)     |
+| Target                               | Description                                                                         | Compatibilities                                             |
+|--------------------------------------|-------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| `targets.APP`                        | Target id for application                                                           | [Documentation](./capabilities#application)                 |
+| `targets.BOOKMARKS`                  | Target id for the bookmarks/app launcher component                                  | [Documentation](./capabilities#bookmarks)                   |
+| `targets.COMMUNITY`                  | Target id for the community pages                                                   | [Documentation](./capabilities#community)                   |
+| `targets.CONTENT`                    | Target id for the content page                                                      | [Documentation](./capabilities#content)                     |
+| `targets.CONTEXTUAL_ACTIONS`         | Target id for the contextual actions menu on the right hand side of a content page. | [Documentation](./capabilities#contextual-actions)          |
+| `targets.CONTRIBUTION_MENU`          | Target id for the contribution menu.                                                | [Documentation](./capabilities#contribution-menu)           |
+| `targets.CONTRIBUTION_BUTTON`        | Target id for the contribution button.                                              | [Documentation](./capabilities#contribution-button)         |
+| `targets.ERROR_PAGE`                 | Target id for the error pages.                                                      | [Documentation](./capabilities#error-page)                  |
+| `targets.FAVORITES`                  | Target id for the favorite directories.                                             | [Documentation](./capabilities#favorites)                   |
+| `targets.DIRECTORY`                  | Target id for the directory.                                                        | [Documentation](./capabilities#directory)                   |
+| `targets.HEADER`                     | Target id for the site's header.                                                    | [Documentation](./capabilities#header)                      |
+| `targets.LOGO`                       | Target id for the site's logo.                                                      | [Documentation](./capabilities#logo)                        |
+| `targets.NAVIGATION`                 | Target id for the main navigation.                                                  | [Documentation](./capabilities#navigation)                  |
+| `targets.NAVIGATION_UI`              | Target id for the main navigation's UI.                                             | [Documentation](./capabilities#navigation)                  |
+| `targets.NOT_FOUND_PAGE`             | Target id for the not found error page (error code 404).                            | [Documentation](./capabilities#not-found-page)              |
+| `targets.NOTIFICATIONS_BUTTON`       | Target id for the notifications center component.                                   | [Documentation](./capabilities#header)                      |
+| `targets.PAGE`                       | Target id for all pages.                                                            | [Documentation](./capabilities#page)                        |
+| `targets.PROFILE`                    | Target id for the profile page.                                                     | [Documentation](./capabilities#profile)                     |
+| `targets.SEARCH`                     | Target id for the search page.                                                      | [Documentation](./capabilities#search)                      |
+| `targets.SEARCH_BOX`                 | Target id for the search box.                                                       | [Documentation](./capabilities#search-box)                  |
+| `targets.SEARCH_CUSTOM_METADATA`     | Target id for search custom metadata.                                               | [Documentation](./capabilities#search-custom-metadata)      |
+| `targets.SEARCH_RESULT_ICON`         | Target id for icons of the search result page and quick search.                     | [Documentation](./capabilities#search-result-icon)          |
+| `targets.SEARCH_TAB`                 | Target id for search tab.                                                           | [Documentation](./capabilities#search-tab)                  |
+| `targets.SETTINGS`                   | Target id for the settings menu.                                                    | [Documentation](./capabilities#settings)                    |
+| `targets.SETTINGS_BUTTON`            | Target id for the settings icon on the top bar.                                     | [Documentation](./capabilities#settings-button)             |
+| `targets.STICKY_HEADER`              | Target id for the sticky header.                                                    | [Documentation](./capabilities#sticky-header)               |
+| `targets.SUB_NAVIGATION`             | Target id for the sub navigation.                                                   | [Documentation](./capabilities#sub-navigation)              |
+| `targets.SUB_NAVIGATION_UI`          | Target id for the sub navigation's UI.                                              | [Documentation](./capabilities#sub-navigation-ui)           |
+| `targets.WIDGET`                     | Target id for a widget.                                                             | [Documentation](./capabilities#widget)                      |
+| `targets.USER_DIRECTORY`             | Target id for the user directory.                                                   | [Documentation](./capabilities#user-directory)              |
+| `targets.USER_PROFILE_ORG_CHART`     | Target id for the user profile organization chart                                   | [Documentation](./capabilities#organization-chart)          |
+| `targets.USER_CARD_FIELDS`           | Target id for the user card displayed on hovering users                             | [Documentation](./capabilities#user-card-fields)            |
+| `targets.USER_PROFILE_HEADER_FIELDS` | Target id for the user profile header fields                                        | [Documentation](./capabilities#user-profile-header-fields)  |
 
 #### widget target
 
