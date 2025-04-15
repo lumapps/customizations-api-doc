@@ -577,6 +577,7 @@ In addition, a `SearchThumbnail` component is available to be as close as possib
 - [Replace icons for a specific result type](./use-cases#replace-icons-for-a-specific-result-type)
 - [Replace icons with a custom svg](./use-cases#replace-icons-with-a-custom-svg)
 - [Replace icons of documents with a specific mimetype](./use-cases#replace-icons-of-documents-with-a-specific-mimetype)
+- [Replace icons of documents with a specific source id](./use-cases#replace-icons-of-documents-with-a-specific-source-id)
 
 
 ### Search tab
