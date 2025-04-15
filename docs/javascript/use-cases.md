@@ -1044,3 +1044,31 @@ window.lumapps.customize(({ targets, components, render, placement }) => {
 ![Search result page with icons replaced by a custom svg](./assets/search-results-mimetype-custom-icon.png "Search result page with icons replaced by a custom svg")
 
 ![Quick search opened with icons replaced by a custom svg](./assets/quick-search-mimetype-custom-icon.png "Quick search opened with icons replaced by a custom svg")
+
+### Replace icons of documents with a specific source id
+
+Some search engines apply a specific source identifier (ex: Google Cloud Search) that could be useful to have for a more in depth customization. You can retrieve this information via the `sourceUid` attribute.
+The following script uses the target `targets.SEARCH_RESULT_ICON` and the placement `placements.REPLACE` in order to replace the default icon used by documents with a specific source identifier by another mdi icon.
+
+**Some notes to consider:** 
+* Promoted results may have different identifier as those that weren't promoted.
+* Search history interactions that were added before the customization was applied may not have the `sourceUid` field available.
+Users will have to manually remove them and/or re-select them in the search results to update the search history.
+
+```js
+window.lumapps.customize(({ targets, components, render, placement }) => {
+    const { SearchThumbnail } = components;
+    render({
+        placement: placement.REPLACE,
+        target: targets.SEARCH_RESULT_ICON,
+        toRenderWithContext: ({ currentProps, entityType, mimeType, sourceUid }) => {
+            const isMyCustomType = sourceUid === 'datasources/3a09903cb4cb4e3b42659d38599d0c37';
+            return SearchThumbnail({
+                ...currentProps,
+              	icon: isMyCustomType ? 'file-pdf' : currentProps.icon,
+            });
+        },
+    });
+});
+
+```
