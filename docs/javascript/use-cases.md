@@ -170,6 +170,39 @@ In the scenario that you would want to hide the App launcher, the following snip
 window.lumapps.disable('bookmarks');
 ```
 
+## Add new bookmarks
+
+In this specific use case, we have the possibility to add new bookmarks into the App Launcher. Bookmarks can be added either as the first elements of the list or the last ones
+
+```js
+window.lumapps.customize(({ targets, components, render, placement, constants }) => {
+    const { Bookmark } = components;
+
+    render({
+        placement: placement.RIGHT,
+        target: targets.BOOKMARKS_ITEMS,
+        toRender: Bookmark({
+            className: 'widget-message',
+            title: 'Test',
+            link: 'https://google.com',
+            icon: 'https://link-to-image.com',
+        }),
+    });
+});
+```
+
+## Disabling bookmarks
+
+Bookmarks can be disabled in order to avoid them to be displayed by adding the following line of JavaScript to your site.
+
+```js
+window.lumapps.disable('bookmarked-apps-docs');
+```
+
+The ID used is retrieved from the bookmarks HTML, where each bookmark has the `id` attribute.
+
+![Target Bookmarks items ids](./assets/target-bookmarks-items-ids.png "Target Bookmarks items ids")
+
 ## Display a message above all pages of a certain type
 
 In this use case, we are displaying a message oon all pages of a certain type. This should be used when an important message wants to be conveyed for all pages of a site in a quick and efficient way.
