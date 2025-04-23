@@ -66,6 +66,7 @@ And `configuration` is an object that allows these properties:
 |--------------------------------------|-------------------------------------------------------------------------------------|-------------------------------------------------------------|
 | `targets.APP`                        | Target id for application                                                           | [Documentation](./capabilities#application)                 |
 | `targets.BOOKMARKS`                  | Target id for the bookmarks/app launcher component                                  | [Documentation](./capabilities#bookmarks)                   |
+| `targets.BOOKMARKS_ITEMS`            | Target id for the bookmarks displayed inside the app launcher                       | [Documentation](./capabilities#bookmarks-items)             |
 | `targets.COMMUNITY`                  | Target id for the community pages                                                   | [Documentation](./capabilities#community)                   |
 | `targets.CONTENT`                    | Target id for the content page                                                      | [Documentation](./capabilities#content)                     |
 | `targets.CONTEXTUAL_ACTIONS`         | Target id for the contextual actions menu on the right hand side of a content page. | [Documentation](./capabilities#contextual-actions)          |
@@ -211,6 +212,30 @@ window.lumapps.customize(({ components, constants }) => {
 | `children`  | String that will be displayed as the content of the badge.          | Yes          | `string`                                | `undefined`   |
 | `size`      | Size of the avatar.                                                 | No           | [`Size`](#size)                         | `Size.m`      |
 | `className` | CSS class that will be applied directly into the wrapper container. | No           | `string` or [css classes](#css-classes) | `undefined`   |
+
+#### Bookmark
+
+![Component Bookmark](./assets/component-bookmark.png "Component Bookmark")
+
+```js
+window.lumapps.customize(({ components, constants }) => {
+    const { Bookmark } = components;
+
+    const component = Bookmark({
+        title: 'Test',
+        link: 'https://google.com',
+        icon: 'https://link-to-image.com',
+    });
+})
+```
+
+`Bookmark` options:
+
+| Option      | Description                                | Is required? | Option type                             | Default Value |
+|-------------|--------------------------------------------|--------------|-----------------------------------------|---------------|
+| `title`     | Bookmark title to display.                 | Yes          | `string`                                | `undefined`   |
+| `link`      | Bookmark link to display.                  | No           | `string`                                | `undefined`   |
+| `icon`      | Bookmark icon to display, should be a URL  | Yes          | `string`                                | `undefined`   |
 
 #### Button
 

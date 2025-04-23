@@ -133,6 +133,26 @@ Target that allows customizing the bookmarks (also known as [App launcher](https
 
 - [Hide app launcher](./use-cases#hide-app-launcher)
 
+### Bookmarks items
+
+Target that allows adding new bookmarks to the [App launcher](https://docs.lumapps.com/docs/explore-l1119324950335211) component
+
+![Target Bookmarks items](./assets/target-bookmarks-items.png "Target Bookmarks items")
+
+#### Compatibility
+
+|               |                                                                                                                           |
+|---------------|---------------------------------------------------------------------------------------------------------------------------|
+| Target ID     | `bookmarks-items`                                                                                                         |
+| Description   | Target that focuses on the bookmarks items (app launcher) icon on the top bar of your site                                |
+| Placements    | Compatible with placements: `LEFT`, `RIGHT`. Customizations are added as siblings of the other bookmarks in the launcher  |
+| Disable       | No compatibility, however, bookmarks can be individually [disabled](./use-cases#disabling-bookmarks)                      |
+| Changing text | No compatibility                                                                                                          |
+
+#### Use cases
+
+- [Add new bookmarks](./use-cases#add-new-bookmarks)
+
 ### Community
 
 Target that allows customizing the surroundings of a [community](https://docs.lumapps.com/docs/explore-l8416655995933057communities) page.
