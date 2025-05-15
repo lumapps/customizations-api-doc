@@ -570,6 +570,25 @@ Target that allows customizing the search custom metadata.
 | Disable       | No compatibility.                  |
 | Changing text | No compatibility.                  |
 
+### Search extension result
+
+Target that allows replacing search results coming from any search extension.
+
+![Search extension results](./assets/search-extension-result-doc.png "Search extension result")
+
+#### Compatibility
+
+|               |                                        |
+| ------------- | -------------------------------------- |
+| Target ID     | `search-extension-result`                   |
+| Description   | Target the search extension result.         |
+| Placements    | Compatible with placements: `REPLACE`. |
+| Disable       | No compatibility.                      |
+| Changing text | No compatibility.                      |
+
+**Note:** Using `context` it is possible to retrieve the full data of the search result. 
+This, combined with RawHTML component, allows a full customization of the extension search result.
+
 ### Search result icon
 
 Target that allows customizing icons of the search results of both the search page and quick search.
