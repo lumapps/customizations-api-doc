@@ -27,6 +27,9 @@ If you are considering self hosting your assets, here are some tips and notes th
 ### Comments on code
 Adding comments to the deployed code is currently not supported. Comments add kilobytes to the overall page size which can potentially impact performance. So in order to avoid that performance overhead, comments are not supported and minifying the code is the best practice to follow.
 
+### Customizations on public sites and pages
+Due to security concerns, in order to avoid leaking unwanted sensible information, customizations are not executed on public sites and pages.
+
 ## Rendering on callbacks
 
 As of right now, we do not provide support for executing the `render` function from a callback, for example, after the user has clicked on a button and the `onClick` function was called. As for now, we only support executing `render` on the application's start up.
