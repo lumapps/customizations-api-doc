@@ -586,6 +586,38 @@ window.lumapps.customize(({ targets, components, render, session, placement, con
 - The target `PAGE` makes this customization appear on every single page of your site (excluding the administration interface). Please take a look at the [api](./api) to see how you can narrow down which page you want to target.
 - When using slideshows or changing the content position (via the administration interface), this customization could possibly generate different results depending on the page. Please make sure that when adding a customization like this, it is displayed correctly on every type of page. If you are combining slideshows with negative content positions, this might not be a customization you want to use.
 
+If you want more control on which pages you want the customization to appear, you have two alternatives:
+- Use a more specific target and rendering multiple customizations using the list of [targets](api.md#pages)
+- Use the `toRenderWithContext` and retrieve the type of page displayed, and then define for which targets you want the customization to be displayed
+
+For example, this customization only renders a Message when the page is either a playlist or a video page.
+
+```js
+window.lumapps.customize(({ targets, components, render, session, placement, constants }) => {
+    const { Message } = components;
+    const { Kind } = constants;
+
+    render({
+        placement: placement.ABOVE,
+        target: targets.PAGE,
+        toRenderWithContext: (context) => {
+            if ([targets.PLAYLIST, targets.VIDEO].includes(context.type)) {
+                return (
+                    Message({
+                        className: 'customizations-wrapper',
+                        kind: Kind.warning,
+                        children: 'This site won\'t be accessible between 10PM and 11PM PST due to maintenance',
+                        hasBackground: true,
+                    })
+                );
+            }
+
+            return null;
+        },
+    });
+});
+```
+
 ## Disable the search box
 
 ```js

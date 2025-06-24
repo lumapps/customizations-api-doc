@@ -45,8 +45,8 @@ And `configuration` is an object that allows these properties:
 
 | Parameter                  |  Description  |
 | -------------------------- | ------------- |
-| `shouldRenderOnNavigation` | whether the customization callback should be executed upon navigation. If `true`, the `callback` will be executed on every navigation that the application executes. **IMPORTANT:** Please make sure that this option applies and is needed to your use case in order to avoid having an unnecessary performance impact. Normally you would not need to set it to true |
-| `shouldRenderOnNavigation` |  if the customization uses data from the current content (by executing `window.lumapps.getCurrentContent()`). As of right now, other than that use case, `shouldRenderOnNavigation` should always be `false`. |
+| `shouldRenderOnNavigation` | Whether the customization callback should be executed upon navigation. If `true`, the `callback` will be executed on every navigation that the application executes. **IMPORTANT:** Please make sure that this option applies and is needed to your use case in order to avoid having an unnecessary performance impact. Normally you would not need to set it to true |
+| `shouldUseCurrentContent`  | If the customization uses data from the current content (by executing `window.lumapps.getCurrentContent()`). As of right now, other than that use case, `shouldUseCurrentContent` should always be `false`. |
 
 ### events
 
@@ -62,31 +62,26 @@ And `configuration` is an object that allows these properties:
 
 `targets` is a key/value object that holds the available targets that can be customized on LumApps. This variable allows developers to avoid figuring out which ids to use in order to customize a specific target, and it also defines the available targets that can be customized. As of now, these are the values for this object:
 
+#### Specific components
+The following table displays the targets for the individual components across LumApps
+
 | Target                               | Description                                                                         | Compatibilities                                             |
 |--------------------------------------|-------------------------------------------------------------------------------------|-------------------------------------------------------------|
 | `targets.APP`                        | Target id for application                                                           | [Documentation](./capabilities#application)                 |
 | `targets.BOOKMARKS`                  | Target id for the bookmarks/app launcher component                                  | [Documentation](./capabilities#bookmarks)                   |
 | `targets.BOOKMARKS_ITEMS`            | Target id for the bookmarks displayed inside the app launcher                       | [Documentation](./capabilities#bookmarks-items)             |
-| `targets.COMMUNITY`                  | Target id for the community pages                                                   | [Documentation](./capabilities#community)                   |
-| `targets.CONTENT`                    | Target id for the content page                                                      | [Documentation](./capabilities#content)                     |
-| `targets.CONTEXTUAL_ACTIONS`         | Target id for the contextual actions menu on the right hand side of a content page. | [Documentation](./capabilities#contextual-actions)          |
-| `targets.CONTRIBUTION_MENU`          | Target id for the contribution menu.                                                | [Documentation](./capabilities#contribution-menu)           |
 | `targets.CONTRIBUTION_BUTTON`        | Target id for the contribution button.                                              | [Documentation](./capabilities#contribution-button)         |
-| `targets.ERROR_PAGE`                 | Target id for the error pages.                                                      | [Documentation](./capabilities#error-page)                  |
+| `targets.CONTRIBUTION_MENU`          | Target id for the contribution menu.                                                | [Documentation](./capabilities#contribution-menu)           |
+| `targets.CONTEXTUAL_ACTIONS`         | Target id for the contextual actions menu on the right hand side of a content page. | [Documentation](./capabilities#contextual-actions)          |
 | `targets.FAVORITES`                  | Target id for the favorite directories.                                             | [Documentation](./capabilities#favorites)                   |
-| `targets.DIRECTORY`                  | Target id for the directory.                                                        | [Documentation](./capabilities#directory)                   |
 | `targets.HEADER`                     | Target id for the site's header.                                                    | [Documentation](./capabilities#header)                      |
 | `targets.LOGO`                       | Target id for the site's logo.                                                      | [Documentation](./capabilities#logo)                        |
 | `targets.NAVIGATION`                 | Target id for the main navigation.                                                  | [Documentation](./capabilities#navigation)                  |
 | `targets.NAVIGATION_UI`              | Target id for the main navigation's UI.                                             | [Documentation](./capabilities#navigation)                  |
-| `targets.NOT_FOUND_PAGE`             | Target id for the not found error page (error code 404).                            | [Documentation](./capabilities#not-found-page)              |
 | `targets.NOTIFICATIONS_BUTTON`       | Target id for the notifications center component.                                   | [Documentation](./capabilities#header)                      |
-| `targets.PAGE`                       | Target id for all pages.                                                            | [Documentation](./capabilities#page)                        |
-| `targets.PROFILE`                    | Target id for the profile page.                                                     | [Documentation](./capabilities#profile)                     |
-| `targets.SEARCH`                     | Target id for the search page.                                                      | [Documentation](./capabilities#search)                      |
 | `targets.SEARCH_BOX`                 | Target id for the search box.                                                       | [Documentation](./capabilities#search-box)                  |
 | `targets.SEARCH_CUSTOM_METADATA`     | Target id for search custom metadata.                                               | [Documentation](./capabilities#search-custom-metadata)      |
-| `targets.SEARCH_EXTENSION_RESULT`  | Target id for result coming from search extensions. For further information, please refer to the [search SDK documentation](https://docs.lumapps.com/docs/ls/content/7922416882680847/docs/devportal-devportal-landing/devportal-l7646654821110653/devportal-l18963592772091442/devportal-l2842548453481841/devportal-l5187611046361645).                                               | [Documentation](./capabilities#search-extension-result)      |
+| `targets.SEARCH_EXTENSION_RESULT`    | Target id for result coming from search extensions. For further information, please refer to the [search SDK documentation](https://docs.lumapps.com/docs/ls/content/7922416882680847/docs/devportal-devportal-landing/devportal-l7646654821110653/devportal-l18963592772091442/devportal-l2842548453481841/devportal-l5187611046361645). | [Documentation](./capabilities#search-extension-result)      |
 | `targets.SEARCH_RESULT_ICON`         | Target id for icons of the search result page and quick search.                     | [Documentation](./capabilities#search-result-icon)          |
 | `targets.SEARCH_TAB`                 | Target id for search tab.                                                           | [Documentation](./capabilities#search-tab)                  |
 | `targets.SETTINGS`                   | Target id for the settings menu.                                                    | [Documentation](./capabilities#settings)                    |
@@ -94,11 +89,31 @@ And `configuration` is an object that allows these properties:
 | `targets.STICKY_HEADER`              | Target id for the sticky header.                                                    | [Documentation](./capabilities#sticky-header)               |
 | `targets.SUB_NAVIGATION`             | Target id for the sub navigation.                                                   | [Documentation](./capabilities#sub-navigation)              |
 | `targets.SUB_NAVIGATION_UI`          | Target id for the sub navigation's UI.                                              | [Documentation](./capabilities#sub-navigation-ui)           |
-| `targets.WIDGET`                     | Target id for a widget.                                                             | [Documentation](./capabilities#widget)                      |
-| `targets.USER_DIRECTORY`             | Target id for the user directory.                                                   | [Documentation](./capabilities#user-directory)              |
-| `targets.USER_PROFILE_ORG_CHART`     | Target id for the user profile organization chart                                   | [Documentation](./capabilities#organization-chart)          |
 | `targets.USER_CARD_FIELDS`           | Target id for the user card displayed on hovering users                             | [Documentation](./capabilities#user-card-fields)            |
+| `targets.USER_DROPDOWN_LINKS`        | Target id for the user dropdown links page.                                         | [Documentation](./capabilities#user-dropdown-links)         |
 | `targets.USER_PROFILE_HEADER_FIELDS` | Target id for the user profile header fields                                        | [Documentation](./capabilities#user-profile-header-fields)  |
+| `targets.USER_PROFILE_ORG_CHART`     | Target id for the user profile organization chart                                   | [Documentation](./capabilities#organization-chart)          |
+| `targets.WIDGET`                     | Target id for a widget.                                                             | [Documentation](./capabilities#widget)                      |
+
+#### Pages
+The following table displays the targets for LumApps pages
+| Target                               | Description                                                                         | Compatibilities                                             |
+|--------------------------------------|-------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| `targets.COMMUNITY`                  | Target id for the community pages                                                   | [Documentation](./capabilities#community)                   |
+| `targets.CONTENT`                    | Target id for the content page                                                      | [Documentation](./capabilities#content)                     |
+| `targets.CUSTOM_LIST`                | Target id for the custom list page.                                                 | [Documentation](./capabilities#custom-list)                 |
+| `targets.DIRECTORY`                  | Target id for the directory.                                                        | [Documentation](./capabilities#directory)                   |
+| `targets.ERROR_PAGE`                 | Target id for the error pages.                                                      | [Documentation](./capabilities#error-page)                  |
+| `targets.FEED`                       | Target id for the feed page.                                                        | [Documentation](./capabilities#feed)                        |
+| `targets.NOT_FOUND_PAGE`             | Target id for the not found error page (error code 404).                            | [Documentation](./capabilities#not-found-page)              |
+| `targets.PAGE`                       | Target id for all pages.                                                            | [Documentation](./capabilities#page)                        |
+| `targets.PLAYLIST`                   | Target id for the playlist page.                                                    | [Documentation](./capabilities#playlist)                    |
+| `targets.PROFILE`                    | Target id for the profile page.                                                     | [Documentation](./capabilities#profile)                     |
+| `targets.SEARCH`                     | Target id for the search page.                                                      | [Documentation](./capabilities#search)                      |
+| `targets.SPACE`                      | Target id for the space page.                                                       | [Documentation](./capabilities#space)                       |
+| `targets.USER_DIRECTORY`             | Target id for the user directory.                                                   | [Documentation](./capabilities#user-directory)              |
+| `targets.USER_SETTINGS`              | Target id for the user settings page.                                               | [Documentation](./capabilities#user-settings)               |
+| `targets.VIDEO`                      | Target id for the video page.                                                       | [Documentation](./capabilities#video)                       |
 
 #### widget target
 
@@ -275,7 +290,7 @@ window.lumapps.customize(({ components, constants }) => {
 | `hasBackground` | Whether or not the button has a background color.                     | No           | `boolean`                                     | `false`                |
 | `isDisabled`    | Whether the component should be displayed in a disabled state or not. | No           | `boolean`                                     | `false`                |
 | `name`          | Native button name property.                                          | No           | `string`                                      | `undefined`            |
-| `href`          | Native anchorproperty. Renders a `<button>` or an `<a>` accordingly.  | No           | `string`                                      | `undefined`            |
+| `href`          | Native anchor property. Renders a `<button>` or an `<a>` accordingly.  | No           | `string`                                      | `undefined`            |
 | `target`        | To be used in combination with `href`                                 | No           | `"_self" or "_blank" or "_parent" or "_top".` | `undefined`            |
 | `type`          | Native button type.                                                   | No           | `string`                                      | `undefined`            |
 | `leftIcon`      | Mdi icon id to be displayed on the left hand side of the button.      | No           | [icon](#using-icons)                          | `undefined`            |
@@ -322,8 +337,8 @@ window.lumapps.customize(({ components, constants }) => {
 | `onClick`       | The callback to execute when clicking on this item.                           | No           | `function`                              | `undefined`          |
 | `emphasis`      | Emphasis variant.                                                             | No           | [Emphasis](#emphasis)                   | `Emphasis.high`      |
 | `hasBackground` | Whether or not the button has a background color.                             | No           | `boolean`                               | `false`              |
-| `after`         | Component that will be rendered inside the compononent but after `children`.  | No           | `boolean`                               | `false`              |
-| `before`        | Component that will be rendered inside the compononent but before `children`. | No           | `boolean`                               | `false`              |
+| `after`         | Component that will be rendered inside the component but after `children`.  | No           | Component                               | `undefined`   |
+| `before`        | Component that will be rendered inside the component but before `children`. | No           | Component                               | `undefined`   |
 | `isDisabled`    | Whether the component should be displayed in a disabled state or not.         | No           | `boolean`                               | `false`              |
 | `isHighlighted` | Whether the component should be displayed in a highlighted state or not.      | No           | `boolean`                               | `false`              |
 
@@ -413,7 +428,7 @@ window.lumapps.customize(({ components, constants }) => {
 | `hasBackground` | Whether or not the button has a background color.                     | No           | `boolean`                                     | `false`                |
 | `isDisabled`    | Whether the component should be displayed in a disabled state or not. | No           | `boolean`                                     | `false`                |
 | `name`          | Native button name property.                                          | No           | `string`                                      | `undefined`            |
-| `href`          | Native anchorproperty. Renders a `<button>` or an `<a>` accordingly.  | No           | `string`                                      | `undefined`            |
+| `href`          | Native anchor property. Renders a `<button>` or an `<a>` accordingly.  | No           | `string`                                      | `undefined`            |
 | `target`        | To be used in combination with `href`                                 | No           | `"_self" or "_blank" or "_parent" or "_top".` | `undefined`            |
 | `type`          | Native button type.                                                   | No           | `string`                                      | `undefined`            |
 
@@ -521,7 +536,7 @@ window.lumapps.customize(({ components }) => {
 | `children`         | Single component or list of components that will be rendered inside the `Dropdown` component.| Yes          | Component or Component[]                | `undefined`   |
 | `label`            | String to be displayed on the button that triggers the dropdown.                             | Yes          | `string`                                | `undefined`   |
 | `className`        | CSS class that will be applied directly into the wrapper container.                          | No           | `string` or [css classes](#css-classes) | `undefined`   |
-| `buttonProps`      | Properties that will be passed to the button component that triggers the dropdwon.           | No           | [button options](#button)               | `undefined`   |
+| `buttonProps`      | Properties that will be passed to the button component that triggers the dropdown.           | No           | [button options](#button)               | `undefined`   |
 | `onClose`          | Callback to be executed once the dropdown is closed.                                         | No           | `function () => void`                   | `undefined`   |
 | `closeOnClickAway` | Boolean that determines whether a click anywhere out of the Dropdown would close it or not.  | No           | `boolean`                               | `false`       |
 | `closeOnClick`     | Boolean that determines whether to close the Dropdown when clicking in it or not.            | No           | `boolean`                               | `false`       |
@@ -748,7 +763,6 @@ window.lumapps.customize(({ components, constants }) => {
 
 | Option       | Description                                                         | Is required? | Option type                             | Default Value |
 |--------------|---------------------------------------------------------------------|--------------|-----------------------------------------|---------------|
-| `children`   | Text to be displayed.                                               | Yes          | `string`                                | `undefined`   |
 | `children`   | Text to be displayed.                                               | Yes          | `string`                                | `undefined`   |
 | `textAs`     | HTML tag to use for the displayed text.                             | No           | `span`, `p`, `h1, h2, h3, h4..`, 'label'| `undefined`   |
 | `className`  | CSS class that will be applied directly into the wrapper container. | No           | `string` or [css classes](#css-classes) | `undefined`   |
@@ -1117,26 +1131,38 @@ Here are the compatible targets and their received context:
 
 #### [Organization chart context](./capabilities#organization-chart)
 
-| Option      | Description | Option type |
-|-------------| ----------- | ------------ |
- `user`  |  The currently displayed user's data.| `object`
+#### [Organization chart context](./capabilities#organization-chart)
 
- `user` options:
+| Option  | Description                                   | Option type |
+|---------|-----------------------------------------------|-------------|
+| `user`  | The currently displayed user's data.          | `object`    |
 
- | Option      | Description | Option type |
-|-------------| ----------- | ------------ |
- `id`  |  The user's id.| `string`
- `primaryEmail`  |  The user's email.| `string`
- `profilePictureUrl`  |  The user's profile picture.| `string`
- `firstName`  |  The user's first name.| `string`
- `lastName`  |  The user's last name.| `string`
- `fullName`  |  The user's full name, formatted using the current user's locale.| `string`
+**`user` options:**
 
- #### [Widget](./capabilities#widget)
+| Option             | Description                                                      | Option type |
+|--------------------|------------------------------------------------------------------|-------------|
+| `id`               | The user's id.                                                   | `string`    |
+| `primaryEmail`     | The user's email.                                                | `string`    |
+| `profilePictureUrl`| The user's profile picture.                                      | `string`    |
+| `firstName`        | The user's first name.                                           | `string`    |
+| `lastName`         | The user's last name.                                            | `string`    |
+| `fullName`         | The user's full name, formatted using the current user's locale. | `string`    |
 
-| Option      | Description | Option type |
-|-------------| ----------- | ------------ |
- `widget`       |  The currently displayed widget's data.| `object`
+#### [Widget](./capabilities#widget)
+
+| Option    | Description                        | Option type |
+|-----------|------------------------------------|-------------|
+| `widget`  | The currently displayed widget's data. | `object`    |
+
+#### [All page targets](./api.md#pages)
+
+| Option      | Description                         | Option type |
+|-------------|-------------------------------------|-------------|
+| `id`        | The currently displayed entity id.  | `string`    |
+| `type`      | The currently displayed entity type | `string`    |
+| `name`      | The currently displayed entity name | `string`    |
+| `isLoading` | Whether the page is loading or not  | `boolean`   |
+| `isMobile`  | True if the view not desktop.       | `boolean`   |
 
 ### session
 
@@ -1221,7 +1247,7 @@ Contains information related to the current logged in user.
 | `session.user.profilePictureUrl`   | Profile picture URL of the current user.                                 | `string[]`                                                       |
 | `session.user.emails`              | Emails associated to the current user.                                   | `Email[]` where Email is `{ address: string; primary: boolean }` |
 
-#### session.navigations
+### session.navigations
 Contains two `Promises`, one for the main navigation and another one for the subnavigation, that allow to retrieve the navigation items displayed on the site. These promises are fulfilled once the data is retrieved by the LumApps web application.
 
 | Promise                     | Description                                                   |    Returned type |
@@ -1233,7 +1259,7 @@ Contains two `Promises`, one for the main navigation and another one for the sub
 
 | Option                          | Description                                                                                               | Option type              |
 |---------------------------------|-----------------------------------------------------------------------------------------------------------|--------------------------|
-| `navigationItem.id`             | Navigation item id, which is the ID entered in the administration page.                                   | `string`                 |
+| `navigationItem.id`        | Navigation item id, which is the ID entered in the administration page.                                   | `string`                 |
 | `navigationItem.uid`            | Navigation item UID.                                                                                      | `string`                 |
 | `navigationItem.url`            | Navigation item URL, which should be the URL printed on the link for this navigation item.                | `string`                 |
 | `navigationItem.title`          | Key/value object where the key is a language id and the value is the title for the item in that language. | `Record<string, string>` |
@@ -1248,211 +1274,14 @@ Contains two `Promises`, one for the main navigation and another one for the sub
 | `navigationItem.type`           | The type of the current navigation item.                                                                  | `string`                 |
 | `navigationItem.items`          | List of navigation items that have the current navigation item as a parent.                               | `NavigationItem[]`       |
 | `navigationItem.link`           | Key/value where the key is a language id and the value is the external link for the item in that language. This value is not empty when the navigation item URL points to an external URL, outside of LumApps                                                                                                        | `Record<string, string>` |
-| `navigationItem.title`          | Key/value where the key is a language id and the value is the title for the item in that language. This value contains the text that should be displayed on the navigation item. It takes into consideration the title of the item to display and if there is a specific override for that item's title       | `Record<string, string>` |
+| `navigationItem.title`          | Key/value where the key is a language id and the value is the slug for the item in that language. This value contains the text that should be displayed on the navigation item. It takes into consideration the title of the item to display and if there is a specific override for that item's title       | `Record<string, string>` |
 | `navigationItem.slug`           | Key/value where the key is a language id and the value is the slug for the item in that language.         | `Record<string, string>` |
 
-### on
-```js
-window.lumapps.customize(({ on, events }) => {
-    on(events, (data) => {
-        // Retrieve data based on a specific event and execute additional customisations.
-    });
-});
-```
+### Using the API
 
-`on` is a function that will be called each time a user perform a specific action or a component is rendered depending on the event. This callback is ideal if you need to trigger additional customisations based on user actions
-across the entire platform, or if you need to communicate information between customizable components.
+The API provides several functions that can be used in order to customize your site.
 
-The `data` parameter will have information depending on the event type. For a full list of all events, please refer to the [documentation](./api#events).
-
-#### Event Search
-
-There are four main types of search events, all of them can ben easily identified using the `cause` props which can be found in all those events:
--  `searchbox-interaction`
--  `filter-interaction`
--  `sort-interaction`
--  `fetch-results`
-
-**Limitation**: The search events are 100% compatible with our native search. For other search engine (Coveo, Google Cloud Search...), please note that they could be unstable or return incorrect values.  Please keep this in mind if you are in this situation.
-
-##### searchbox-interaction
-
-Event triggered each time the user interacts with the search box and displays suggestions. Please find below the props available for this event.
-
-| Option                   | Description                                                                                                         | Option type              |
-|--------------------------|---------------------------------------------------------------------------------------------------------------------|--------------------------|
-| `props.query`        | Query typed by the user.                                                                                  | `string`                 |
-| `props.suggestions`      | Displayed suggestions. Contains label, counterClick, type and siteId                                                                                              | `object[]`                 |
-| `props.cause`      | Cause of the search event. Always set to `searchbox-interaction`                                                                                              | `string`                 |
-
-##### filter-interaction
-
-Event triggered each time the user interacts with the search filters. Please find below the props available for this event.
-
-| Option                   | Description                                                                                                         | Option type              |
-|--------------------------|---------------------------------------------------------------------------------------------------------------------|--------------------------|
-| `props.filteredResultCount`        | Number of results available with the current filters applied (if any). If result count is not available -1 is returned.                                                                  | `number`                 |
-| `props.query`      | Current query used to display search results                                                              | `string`                 |
-| `props.filters`      | List of filters available. Contains id, label, value (all selected values) and choices (all available choices for a given filter)                                                              | `object[]`                 |
-| `props.cause`      | Cause of the search event. Always set to `filter-interaction`                                                                                              | `string`                 |
-
-##### fetch-results
-
-Event triggered each time the user makes a search query or change tabs. Please find below the props available for this event.
-
-| Option                   | Description                                                                                                         | Option type              |
-|--------------------------|---------------------------------------------------------------------------------------------------------------------|--------------------------|
-| `props.filteredResultCount`        | Number of results available with the current filters applied (if any). If result count is not available -1 is returned.                                                                 | `number`                 |
-| `props.query`      | Current query used to display search results                                                              | `string`                 |
-| `props.filters`      | List of filters. Contains id, label, value (all selected values) and choices (all available choice for a given filter)                                                              | `object[]`                 |
-| `props.selectedTabInfo`      | Information for the current search tab. Contains label and totalResultCount                                                              | `object[]`                 |
-| `props.results`      | Information for the current search tab. Contains label and totalResultCount                                                              | `object[]`                 |
-| `props.cause`      | Cause of the search event. Always set to `fetch-results`                                                                                              | `string`                 |
-
-##### sort-interaction
-
-Event triggered each time the user makes apply a new sort order. Please find below the props available for this event.
-
-| Option                   | Description                                                                                                         | Option type              |
-|--------------------------|---------------------------------------------------------------------------------------------------------------------|--------------------------|
-| `props.filteredResultCount`        | Number of results available with the current filters applied (if any). If result count is not available -1 is returned.                                                                 | `number`                 |
-| `props.query`      | Current query used to display search results                                                              | `string`                 |
-| `props.selectedSort`      | Curretn sort applied.                                                               | `string`                 |
-| `props.sortOrders`      | List of all sort values available. Contains a value and a label                                                              | `object[]`                 |
-| `props.cause`      | Cause of the search event. Always set to `sort-interaction`                                                                                              | `string`                 |
-
-#### Event Widget Rendered
-
-Event triggered each time a widget is rendered on the page. This event is ideal if you need to trigger additional customisations for a specific widget
-across the entire platform, or if you need to communicate information between widgets.
-
-The `widget` parameter will have basic information of the rendered widget, plus additional information depending on the widget type
-
-`widget`
-
-| Option                   | Description                                                                                                         | Option type              |
-|--------------------------|---------------------------------------------------------------------------------------------------------------------|--------------------------|
-| `widget.widgetId`        | Unique ID for the rendered widget.                                                                                  | `string`                 |
-| `widget.widgetType`      | Widget type identifier                                                                                              | `string`                 |
-| `widget.htmlId`          | Widget identifier, which can be added via the editor, on the Style > Advanced > Identifier field                    | `string`                 |
-| `widget.cssClass`        | Widget css class, which includes a unique css class for the widget as well as the css class added via the editor    | `string`                 |
-| `widget.cssClass`        | Widget css class, which includes a unique css class for the widget as well as the css class added via the editor    | `string`                 |
-| `widget.html`            | If the widget is of type HTML, the HTML content will be available in this variable                                  | `string`                 |
-| `widget.items`           | If the widget renders a list of items, those items will be available in this variable                               | `object[]`               |
-
-**Limitations and best practices**
-- LumApps widgets are rendered in a lazy fashion, meaning that they are rendered depending whether they are visible on your current viewport or not. This means that when you visit a content, `onWidgetRendered` will be executed for the widgets that are visible on the viewport, and when the user starts scrolling, `onWidgetRendered` will be executed after those widgets have loaded.
-- `widget.items` can contain information that you can use in order to retrieve information from the rendered items on the given widget. However, it is worth mentioning that these items ARE NOT stable and can suffer changes at any time. Please consider this while developing any of your features. Only the properties documented in this section are considered stable.
-- This event is only supported on contents compatible with our next gen interface (`NGI`) system
-
-#### Event Navigation
-
-It is an event that will be called on each navigation. It receives the following parameters:
-- `currentPage`: Id of the current page.
-
-**Limitations and best practices**
-- This specific event should be used for tracking purposes as well as triggering other external services. It should not be used in combination with the `render` function, since this is not intended to work by design. Targets and placement should already help in rendering customizations on specific pages.
-
-### pushEvent
-The `pushEvent` function allows to generate custom events so that they can be retrieved using the [on](#on) callback.
-
-```js
-window.lumapps.customize(({ pushEvent }) => {
-    pushEvent('custom event', { test: '123' });
-});
-```
-
-```js
-window.lumapps.customize(({ on }) => {
-    on('custom event', (data) => {
-        console.log('custom event registered', data);
-    });
-});
-```
-
-This function has two parameters:
-- id: this is the id of the event, that will be used to retrieve said event afterwards
-- data: object or value that will be send over with the event, so that it can be retrieved on the `on` callback.
-
-### getLatestEvents
-The function `getLatestEvents` retrieves the last 10 events that occurred on the user's current session. This is useful when you want to subscribe to a specific event but the code that adds the subscription is executed AFTER the event has occurred. With this, a developer would be able to retrieve the latest events that they might have missed.
-
-```js
-window.lumapps.customize(({ getLatestEvents }) => {
-    const events = getLatestEvents(); // retrieves all latest events
-});
-```
-
-You can also filter the list of events by providing a specific type
-```js
-window.lumapps.customize(({ getLatestEvents }) => {
-    const events = getLatestEvents('navigation'); // retrieves all latest events that have the navigation type.
-});
-```
-
-Some precisions:
-- Only the last 10 events will be retrieved, previous events will be dismissed and cannot be retrieved
-- Custom and LumApps events are both supported
-- Events come with a timestamp so that developers can figure out when did they occur
-
-**IMPORTANT**
-This only retrieves the events from the current session, so the data will be lost once the user leaves the current page, or the user navigates between applications (including navigations between legacy and NGI pages). Events will only be saved if the user remains on the same application.
-
-### state
-The state management API allows developers no longer need to manage state on their end. It has two methods:
-
-`state.set` allows to save either a value or an object in memory, associating it to a specific key. Key needs to be a string.
-
-```js
-window.lumapps.customize(({ state }) => {
-   state.set('key', 'value');
-});
-```
-
-`state.get` allows to retrieve a previously saved value or an object in memory, associated to a specific key. Key needs to be a string.
-
-```js
-window.lumapps.customize(({ state }) => {
-    state.get('key'); // returns 'value'
-});
-```
-
-Some precisions on this API:
-- This only saves in-memory state, so the data will be lost once the user leaves the current page, or the user navigates between applications (including navigations between legacy and NGI pages). State will only be saved if the user remains on the same application.
-- It is also worth mentioning that this state is shared across customizations.
-
-### on navigation
-**IMPORTANT**
-`onNavigation` is a function that will be called on each navigation. **This function is now deprecated**. Please use `on` function with the [Navigation event](./api#eventsnavigation) instead.
-
-```js
-window.lumapps.customize(({ onNavigation }) => {
-    onNavigation(({ currentPage }) => {
-        sendTrack({
-            page: currentPage,
-        })
-    })
-});
-```
-
-### on widget rendered
-
-**IMPORTANT** `onWidgetRendered` is a function that will be called each time a widget is rendered on the page. **This function is now deprecated**. Please use `on` function with the [Widget rendered event](./api#eventswidget_rendered) instead.
-
-### api
-```js
-window.lumapps.customize(({ api }) => {
-    api.get('...').then((response) => {
-
-    });
-});
-```
-
-`api` is an [Axios](https://github.com/axios/axios) instance that allows executing XHR requests to both LumApps api's as well as external APIs. If you want to query LumApps's services, please take into consideration that URLs need to be relative rather than absolute. So for example, if your site's URL is `https://mysite.com` and you want to query the CONTENT API in order to retrieve a specific content, you will need to use `/_ah/api/lumsites/v1/content/get` rather than `https://mysite.com/_ah/api/lumsites/v1/content/get`.
-
-If you want to know which API you can use on LumApps, please take a look at the [API](https://api.lumapps.com) documentation site.
-
-### setText
+#### setText
 ```js
 window.lumapps.setText('search-box', {
     en: 'Explore',
@@ -1628,3 +1457,6 @@ There are several components that have an option to configure a specific icon. O
 ![image](./assets/material-design-modal.png)
 
 The ID is the modal's title. In the example, it is `ab-testing`.
+```html
+<Icon icon="ab-testing" />
+```

@@ -308,6 +308,26 @@ Target that allows customizing the [favorites directories](https://docs.lumapps.
 | Disable       | Can be disabled. Disabling this features hides ALL directories flagged as "Manage favorites". |
 | Changing text | No compatibility                                                                              |
 
+### Feed
+
+Target that allows customizing the [feed](https://docs.lumapps.com/docs/user-l40361421359767846) page.
+
+![Target Feed](./assets/target-feed.png "Target Feed")
+
+#### Compatibility
+
+|               |                                                                                                                     |
+| ------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Target ID     | `feed`                                                                                                              |
+| Description   | Target that focuses on the Feed page.                                                                               |
+| Placements    | Compatible with placements: `ABOVE`, `UNDER`.                                                                       |
+| Disable       | No compatibility                                                                                                    |
+| Changing text | No compatibility                                                                                                    |
+
+#### Use cases
+
+- [Display a message above all pages of a certain type](./use-cases#display-a-message-above-all-pages-of-a-certain-type)
+
 ### Header
 
 Target that allows customizing the entire header of the application, which englobes the top bar (logo, search box, notifications), the navigation of the site as well as the site's [slideshow](https://docs.lumapps.com/docs/explore-l0285322674420444).
@@ -420,6 +440,26 @@ Targets that allows customizing the [notifications center button](https://docs.l
 
 - [Adding new actions on the top bar](./use-cases#adding-new-actions-on-the-top-bar)
 
+### Organization chart
+
+Target that allows customizing the user organization chart.
+
+![Target user organization chart](./assets/target-organization-chart.png "Target user organization chart")
+
+#### Compatibility
+
+|               |                                                                                                                  |
+|---------------|------------------------------------------------------------------------------------------------------------------|
+| Target ID     | `user-profile-org-chart`                                                                                                        |
+| Description   | Target the organization chart section of a user's profile.                                                                                    |
+| Placements    | Compatible with placements: `ABOVE`, `UNDER`. Customizations will be added as siblings of the displayed user's organization chart. |
+| Disable       | No compatibility                                                                                                 |
+| Changing text | No compatibility                                                                                                 |
+
+**Notes:**
+* The `User space` feature flag must be enabled in order to access the new user profile experience.
+* The displayed user's data can be retrieved using [context](./api#organization-chart-context).
+
 ### Page
 
 Target that allows customizing pages on your site. This specific target allows developers to display a customization on all pages no matter whether they are the search page, the user profile page or more dynamic pages like content pages and community pages.
@@ -442,38 +482,18 @@ Target that allows customizing pages on your site. This specific target allows d
 - [Display a message above all pages of a certain type](./use-cases#display-a-message-above-all-pages-of-a-certain-type)
 
 
-### Organization chart
+### Playlist
 
-Target that allows customizing the user organization chart.
+Target that allows customizing the [playlist](https://docs.lumapps.com/docs/ls/content/4415252050604089/contrib-l3864543863940111) page.
 
-![Target user organization chart](./assets/target-organization-chart.png "Target user organization chart")
-
-#### Compatibility
-
-|               |                                                                                                                  |
-|---------------|------------------------------------------------------------------------------------------------------------------|
-| Target ID     | `user-profile-org-chart`                                                                                                        |
-| Description   | Target the organization chart section of a user's profile.                                                                                    |
-| Placements    | Compatible with placements: `ABOVE`, `UNDER`. Customizations will be added as siblings of the displayed user's organization chart. |
-| Disable       | No compatibility                                                                                                 |
-| Changing text | No compatibility                                                                                                 |
-
-**Notes:**
-* The `User space` feature flag must be enabled in order to access the new user profile experience.
-* The displayed user's data can be retrieved using [context](./api#organization-chart-context).
-
-### User Directory
-
-Target that allows customizing the [user directory](https://docs.lumapps.com/docs/explore-l8658525737805197modules) page.
-
-![Target User Directory](./assets/target-user-directory.png "Target User Directory")
+![Target playlist](./assets/target-playlist.png "Target playlist")
 
 #### Compatibility
 
 |               |                                                                                                                     |
 | ------------- | ------------------------------------------------------------------------------------------------------------------- |
-| Target ID     | `user-directory`                                                                                                    |
-| Description   | Target that focuses on the User Directory page.                                                                     |
+| Target ID     | `playlist`                                                                                                          |
+| Description   | Target that focuses on the Playlist page.                                                                           |
 | Placements    | Compatible with placements: `ABOVE`, `UNDER`.                                                                       |
 | Disable       | No compatibility                                                                                                    |
 | Changing text | No compatibility                                                                                                    |
@@ -482,38 +502,25 @@ Target that allows customizing the [user directory](https://docs.lumapps.com/doc
 
 - [Display a message above all pages of a certain type](./use-cases#display-a-message-above-all-pages-of-a-certain-type)
 
-### User card fields
+### Profile
 
-Target that allows customizing a user's card fields section, adding additional fields below the current existing ones.
+Target that allows customizing a user's profile page.
 
-![Target profile](./assets/target-user-card-fields.png "Target profile")
-
-#### Compatibility
-
-|               |                                                                                                                  |
-|---------------|------------------------------------------------------------------------------------------------------------------|
-| Target ID     | `user-card-fields`                                                                                               |
-| Description   | Target the user card fields.                                                                                     |
-| Placements    | Compatible with placements: `UNDER`.                                                                             |
-| Disable       | No compatibility                                                                                                 |
-| Changing text | No compatibility                                                                                                 |
-
-### User profile header fields
-
-Target that allows customizing a user's profile header fields section, adding additional fields the current existing ones.
-
-![Target profile](./assets/target-user-profile-header-fields.png "Target profile")
+![Target profile](./assets/target-profile.png "Target profile")
 
 #### Compatibility
 
 |               |                                                                                                                  |
 |---------------|------------------------------------------------------------------------------------------------------------------|
-| Target ID     | `user-profile-header-fields`                                                                                     |
-| Description   | Target the user profile header fields.                                                                           |
-| Placements    | Compatible with placements: `ABOVE`, `UNDER`, `RIGHT`, `LEFT`                                                    |
+| Target ID     | `profile`                                                                                                        |
+| Description   | Target the user profile page.                                                                                    |
+| Placements    | Compatible with placements: `ABOVE`, `UNDER`. Customizations will be added as siblings of the user profile page. |
 | Disable       | No compatibility                                                                                                 |
 | Changing text | No compatibility                                                                                                 |
 
+#### Use cases
+
+- [Display a message above all pages of a certain type](./use-cases#display-a-message-above-all-pages-of-a-certain-type)
 
 ### Search
 
@@ -683,21 +690,21 @@ Target that allows customizing the settings links displayed on the dropdown trig
 
 - [Add links to other administration tools](./use-cases#add-links-to-other-administration-tools)
 
-### Profile
+### Space
 
-Target that allows customizing a user's profile page.
+Target that allows customizing the [space](https://docs.lumapps.com/docs/ls/content/4762287075821473/contrib-l7094516890994396) page.
 
-![Target profile](./assets/target-profile.png "Target profile")
+![Target Space](./assets/target-space.png "Target Space")
 
 #### Compatibility
 
-|               |                                                                                                                  |
-|---------------|------------------------------------------------------------------------------------------------------------------|
-| Target ID     | `profile`                                                                                                        |
-| Description   | Target the user profile page.                                                                                    |
-| Placements    | Compatible with placements: `ABOVE`, `UNDER`. Customizations will be added as siblings of the user profile page. |
-| Disable       | No compatibility                                                                                                 |
-| Changing text | No compatibility                                                                                                 |
+|               |                                                                                                                     |
+| ------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Target ID     | `space`                                                                                                             |
+| Description   | Target that focuses on the Space page.                                                                              |
+| Placements    | Compatible with placements: `ABOVE`, `UNDER`.                                                                       |
+| Disable       | No compatibility                                                                                                    |
+| Changing text | No compatibility                                                                                                    |
 
 #### Use cases
 
@@ -759,6 +766,98 @@ There are two targets that focus on the sub navigation, each of them have a diff
 
 - [Hide the entire navigation on your site](./use-cases#hide-the-entire-navigation-on-your-site)
 - [Create a custom navigation for your site](./use-cases#create-a-custom-navigation-for-your-site)
+
+### User card fields
+
+Target that allows customizing a user's card fields section, adding additional fields below the current existing ones.
+
+![Target profile](./assets/target-user-card-fields.png "Target profile")
+
+#### Compatibility
+
+|               |                                                                                                                  |
+|---------------|------------------------------------------------------------------------------------------------------------------|
+| Target ID     | `user-card-fields`                                                                                               |
+| Description   | Target the user card fields.                                                                                     |
+| Placements    | Compatible with placements: `UNDER`.                                                                             |
+| Disable       | No compatibility                                                                                                 |
+| Changing text | No compatibility                                                                                                 |
+
+### User Directory
+
+Target that allows customizing the [user directory](https://docs.lumapps.com/docs/explore-l8658525737805197modules) page.
+
+![Target User Directory](./assets/target-user-directory.png "Target User Directory")
+
+#### Compatibility
+
+|               |                                                                                                                     |
+| ------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Target ID     | `user-directory`                                                                                                    |
+| Description   | Target that focuses on the User Directory page.                                                                     |
+| Placements    | Compatible with placements: `ABOVE`, `UNDER`.                                                                       |
+| Disable       | No compatibility                                                                                                    |
+| Changing text | No compatibility                                                                                                    |
+
+#### Use cases
+
+- [Display a message above all pages of a certain type](./use-cases#display-a-message-above-all-pages-of-a-certain-type)
+
+### User Dropdown Links
+
+Target that allows customizing the user dropdown links section on the top bar
+
+#### Compatibility
+
+|                |                                                                                                                       |
+| ---------------|-----------------------------------------------------------------------------------------------------------------------|
+| Target ID      | `user-dropdown-links`                                                                                                 |
+| Description    | Target for the user dropdown menu links displayed on the top bar                                                      |
+| Placements     | Compatible with placements: `ABOVE`, `UNDER`. Customizations will be added as siblings of the other elements.         |
+| Disable        | No compatibility.                                                                                                    |
+| Changing text  | No compatibility.                                                                                                    |
+
+![Target User dropdown links](./assets/target-user-dropdown-links.png "Target user dropdown links")
+
+### User Settings
+
+Target that allows customizing the user settings page.
+
+![Target user settings](./assets/target-user-settings.png "Target user settings")
+
+#### Compatibility
+
+|               |                                                                                                                     |
+| ------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Target ID     | `user-settings`                                                                                                     |
+| Description   | Target that focuses on the User settings page.                                                                      |
+| Placements    | Compatible with placements: `ABOVE`, `UNDER`.                                                                       |
+| Disable       | No compatibility                                                                                                    |
+| Changing text | No compatibility                                                                                                    |
+
+#### Use cases
+
+- [Display a message above all pages of a certain type](./use-cases#display-a-message-above-all-pages-of-a-certain-type)
+
+### Video
+
+Target that allows customizing the video page.
+
+![Target video](./assets/target-video.png "Target video")
+
+#### Compatibility
+
+|               |                                                                                                                     |
+| ------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Target ID     | `video`                                                                                                     |
+| Description   | Target that focuses on the Video page.                                                                      |
+| Placements    | Compatible with placements: `ABOVE`, `UNDER`.                                                                       |
+| Disable       | No compatibility                                                                                                    |
+| Changing text | No compatibility                                                                                                    |
+
+#### Use cases
+
+- [Display a message above all pages of a certain type](./use-cases#display-a-message-above-all-pages-of-a-certain-type)
 
 ### Widget
 
