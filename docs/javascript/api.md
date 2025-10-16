@@ -1452,7 +1452,11 @@ With the class `customizations-wrapper`:
 
 ### Using icons
 
-There are several components that have an option to configure a specific icon. On LumApps we use Material Design icons as the icons for our platform. The different icons that are available is quite extensive (around 4000+) and you can find icons and their IDs on the [Material Design site](https://materialdesignicons.com/). In order to retrieve the ID to be used on your customizations, you can go to the Material design site, click an icon and take a look at the details of the icon. A modal window will be displayed:
+There are several components that have an option to configure a specific icon. On LumApps we use Material Design icons as the icons for our platform. The different icons that are available is quite extensive (around 4000+) and you can find icons and their IDs on the [Material Design site](https://materialdesignicons.com/).
+
+Those icons are not provided to you by LumApps, but directly by the owner(s) of the Pictogrammer website, under the licences available at  https://pictogrammers.com/docs/general/license/. 
+
+In order to retrieve the ID to be used on your customizations, you can go to the Material design site, click an icon and take a look at the details of the icon. A modal window will be displayed:
 
 ![image](./assets/material-design-modal.png)
 
