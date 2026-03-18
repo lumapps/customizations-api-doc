@@ -1137,3 +1137,126 @@ window.lumapps.customize(({ targets, components, render, placement }) => {
 });
 
 ```
+
+## Customizations on public sites
+
+The following examples show how to use customizations on public sites for anonymous (unauthenticated) users.
+
+**Requirements:**
+- The `public-js-customizations` feature flag must be enabled for your organization
+- "Allow anonymous execution of customizations" must be enabled in Back Office > Advanced Settings > Customization
+- The customization must set `shouldRenderOnPublicSites: true`
+
+### Adding a welcome banner for all users
+
+This script displays a welcome message to all users, both authenticated and anonymous:
+
+```js
+window.lumapps.customize(({ render, targets, placement, components, constants }) => {
+    const { Message } = components;
+    const { Kind } = constants;
+
+    render({
+        placement: placement.ABOVE,
+        target: targets.PAGE,
+        toRender: Message({
+            kind: Kind.info,
+            children: 'Welcome to our public knowledge base!',
+            hasBackground: true,
+        }),
+    });
+}, { shouldRenderOnPublicSites: true });
+```
+
+### Different content for authenticated vs anonymous users
+
+This script shows how to display different content based on user authentication status:
+
+```js
+window.lumapps.customize(({ render, targets, placement, components, constants, session }) => {
+    const { Message, FlexBox, Button } = components;
+    const { Kind } = constants;
+
+    const content = session.isConnected
+        ? Message({
+            kind: Kind.success,
+            children: 'Welcome back! You have full access to all resources.',
+            hasBackground: true,
+        })
+        : FlexBox({
+            orientation: constants.Orientation.vertical,
+            gap: constants.GapSize.big,
+            children: [
+                Message({
+                    kind: Kind.info,
+                    children: 'You are viewing this as a guest. Sign in to access premium features.',
+                    hasBackground: true,
+                }),
+                Button({
+                    children: 'Sign In',
+                    href: '/login',
+                    emphasis: constants.Emphasis.high,
+                }),
+            ],
+        });
+
+    render({
+        placement: placement.ABOVE,
+        target: targets.PAGE,
+        toRender: content,
+    });
+}, { shouldRenderOnPublicSites: true });
+```
+
+### Public announcement banner with call-to-action
+
+This script displays a promotional banner to anonymous users encouraging them to sign up:
+
+```js
+window.lumapps.customize(({ render, targets, placement, components, constants, session }) => {
+    const { FlexBox, Button, RawHTML } = components;
+    const { Orientation, Emphasis } = constants;
+
+    // Only show to anonymous users
+    if (!session.isConnected) {
+        render({
+            placement: placement.AFTER,
+            target: targets.HEADER,
+            toRender: FlexBox({
+                className: 'public-announcement customizations-wrapper',
+                orientation: Orientation.horizontal,
+                gap: constants.GapSize.big,
+                children: [
+                    RawHTML({
+                        html: '<div class="lumx-typography-title">Join our community to get exclusive access to resources</div>',
+                    }),
+                    Button({
+                        children: 'Get Started',
+                        href: '/signup',
+                        emphasis: Emphasis.high,
+                    }),
+                ],
+            }),
+        });
+    }
+}, { shouldRenderOnPublicSites: true });
+```
+
+CSS for the announcement banner:
+
+```css
+.public-announcement {
+    background-color: #f5f5f5;
+    padding: 16px;
+    align-items: center;
+    justify-content: space-between;
+}
+```
+
+**Important security notes:**
+- Avoid exposing sensitive information in public customizations
+- Do not attempt to access user-specific data for anonymous users
+- Test thoroughly on public pages before deploying to production
+- Consult with your IT and security departments before enabling this feature
+
+For more information, see the [Public Site Customizations](./capabilities#public-site-customizations) section.

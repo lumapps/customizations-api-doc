@@ -82,6 +82,69 @@ window.lumapps.setText('search-box', {
 ![Set text search box](./assets/set-text-search-box.png "Set text search box")
 
 
+## Public Site Customizations
+
+By default, customizations only execute for authenticated (logged-in) users. However, you can configure customizations to also run for anonymous users on public sites by using the `shouldRenderOnPublicSites` configuration option.
+
+### Requirements
+
+To enable public site customizations, the following requirements must be met:
+
+1. **Feature Flag:** The `public-js-customizations` feature flag must be enabled for your organization
+2. **Organization Setting:** An administrator must enable "Allow anonymous execution of customizations" in the Back Office Advanced Settings page (under the Customization section)
+3. **Configuration:** The customization must explicitly set `shouldRenderOnPublicSites: true` in its configuration
+
+### Usage Example
+
+```js
+// This customization will run for both authenticated and anonymous users
+window.lumapps.customize(({ render, targets, placement, components }) => {
+    const { Message } = components;
+    const { Kind } = constants;
+
+    render(targets.HEADER, placement.AFTER, components.Message({
+        kind: Kind.info,
+        children: 'Welcome! This message is visible to everyone.',
+        hasBackground: true,
+    }));
+}, { shouldRenderOnPublicSites: true });
+```
+
+### Checking User Authentication Status
+
+You can check whether a user is authenticated using the `session.isConnected` property to conditionally render different content:
+
+```js
+window.lumapps.customize(({ render, targets, placement, components, session }) => {
+    const { Message } = components;
+    const { Kind } = constants;
+
+    const message = session.isConnected
+        ? 'Welcome back!'
+        : 'Welcome! Please log in to access more features.';
+
+    render(targets.HEADER, placement.AFTER, components.Message({
+        kind: Kind.info,
+        children: message,
+        hasBackground: true,
+    }));
+}, { shouldRenderOnPublicSites: true });
+```
+
+### Important Considerations
+
+⚠️ **Security Warning:** This feature is optional and should be used carefully. The use of this feature may cause the Application to behave erratically and pose security risks. Consult with your IT and security departments before enabling this feature.
+
+**Best Practices:**
+- Only enable public customizations when necessary for your specific use case
+- Avoid exposing sensitive information to anonymous users
+- Test thoroughly on public pages before deploying
+- Consider the performance impact on public pages with high traffic
+- Regularly review and audit public customizations for security issues
+
+For more detailed information, see the [Public Site Customizations Security](./api#public-site-customizations-security) section in the API documentation.
+
+
 ## Components
 
 Here you will find the list of all the components that can be customized on LumApps, with the following information:
