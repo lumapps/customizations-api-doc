@@ -16,6 +16,7 @@ The main entrypoint of this API is the object ```window.lumapps```. On this obje
 - [getCurrentContent](#getcurrentcontent)
 - [getInternalUrl](#getinternalurl)
 - [displayNotification](#displaynotification)
+- [addWidgetFilters](#addwidgetfilters)
 
 ## customize
 
@@ -37,6 +38,7 @@ Where `callback` is a function that will receive a set of `parameters` and retur
 | `pushEvent`        | Function that generates custom events. See more details for this function [here](#pushEvent)                                                                       |
 | `getLatestEvents`  | Function that retrieves the latest events generated on the application. See more details for this function [here](#getLatestEvents)                                |
 | `state`            | Object that provides state management capabilities. See more details for this function [here](#state)                                                              |
+| `addWidgetFilters` | Function that allows adding custom filters to widgets. Supports public site customizations when configured. See more details [here](#addwidgetfilters)              |
 | `onNavigation` (**deprecated**) | Function that will be executed once any widget in a content is rendered. See more details for this function [here](#on-widget-rendered)               |
 | `onWidgetRendered` (**deprecated**) | Function that will be executed once the application has performed a navigation. See more details for this function [here](#on-navigation)         |
 | `api`          | [Axios](https://github.com/axios/axios) instance that allows the developer to execute AJAX requests. See more details for this function [here](#axios-api)             |
@@ -1428,6 +1430,41 @@ window.lumapps.customize(({ session, constants }) => {
     window.lumapps.displayNotification(Kind.success, message[language]);
 });
 ```
+
+### addWidgetFilters
+
+The `addWidgetFilters` function allows you to add custom filters to widgets on your site. This function is available in two locations with different capabilities:
+
+#### Top-level function (Legacy)
+
+```js
+window.lumapps.addWidgetFilters(filterConfig);
+```
+
+**Important:** The top-level `window.lumapps.addWidgetFilters()` function **does not support public site customizations**. Filters added using this method will only work for authenticated users.
+
+#### Within customize callback (Recommended)
+
+```js
+window.lumapps.customize(({ addWidgetFilters }) => {
+    addWidgetFilters(filterConfig);
+}, { shouldRenderOnPublicSites: true });
+```
+
+**Important:** When using `addWidgetFilters` within the `window.lumapps.customize` callback, the function **supports public site customizations** when the `shouldRenderOnPublicSites` configuration option is set to `true`. This allows widget filters to work for both authenticated and anonymous users on public sites.
+
+**Recommendation:** Use the `addWidgetFilters` function within the `customize` callback to ensure compatibility with public site customizations and future updates.
+
+```js
+// Example: Adding widget filters with public site support
+window.lumapps.customize(({ addWidgetFilters }) => {
+    addWidgetFilters({
+        // Your filter configuration here
+    });
+}, { shouldRenderOnPublicSites: true });
+```
+
+See the [Public Site Customizations Security](#public-site-customizations-security) section for more information about enabling and using public site customizations safely.
 
 ### CSS classes
 
