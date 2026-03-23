@@ -176,4 +176,60 @@ The `disable` function should be executed as quickly as possible in the applicat
 
 ## Do not use onNavigation for rendering components
 
-This specific function should be used for tracking purposes as well as triggering other external services. It should not be used in combination with the `render` function, since this is not intended to work by design. Targets and placement should already help in rendering customizations on specific pages. 
+This specific function should be used for tracking purposes as well as triggering other external services. It should not be used in combination with the `render` function, since this is not intended to work by design. Targets and placement should already help in rendering customizations on specific pages.
+
+## Public site customizations
+
+When using `shouldRenderOnPublicSites: true` to enable customizations for anonymous users, follow these best practices:
+
+### Security considerations
+
+- **Review all code carefully**: Any customization running on public sites is visible to anonymous users. Ensure no sensitive information is exposed.
+- **Consult with security team**: Before enabling public customizations, discuss with your IT and security departments to assess potential risks.
+- **Limit scope**: Only enable public customizations when absolutely necessary for your use case.
+- **Avoid user-specific data**: Do not attempt to access or display user-specific information in public customizations.
+
+### Performance considerations
+
+- **Test with realistic traffic**: Public pages may receive significantly more traffic than authenticated pages. Test performance under realistic load conditions.
+- **Minimize external requests**: Avoid making unnecessary API calls or loading external resources in public customizations.
+- **Consider caching**: If your customization displays static or rarely-changing content, consider using appropriate caching strategies.
+
+### Check authentication status
+
+Use `session.isConnected` to provide different experiences for authenticated vs anonymous users:
+
+```js
+window.lumapps.customize(({ render, targets, placement, components, session }) => {
+    const { Message } = components;
+
+    // Only show certain features to authenticated users
+    if (session.isConnected) {
+        render(targets.HEADER, placement.AFTER, Message({
+            children: 'Welcome back! You have access to premium features.',
+        }));
+    } else {
+        render(targets.HEADER, placement.AFTER, Message({
+            children: 'Welcome! Sign in to access more features.',
+        }));
+    }
+}, { shouldRenderOnPublicSites: true });
+```
+
+### Configuration organization
+
+Group customizations by their public/private nature:
+
+```js
+// Customizations that run only for authenticated users (default)
+window.lumapps.customize(({ render, targets, placement, components }) => {
+    // Private features for authenticated users only
+});
+
+// Customizations that run for everyone (public sites)
+window.lumapps.customize(({ render, targets, placement, components }) => {
+    // Public features visible to all users
+}, { shouldRenderOnPublicSites: true });
+```
+
+For more information, see the [Public Site Customizations](./capabilities#public-site-customizations) section. 

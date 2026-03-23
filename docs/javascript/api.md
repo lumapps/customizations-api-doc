@@ -46,7 +46,46 @@ And `configuration` is an object that allows these properties:
 | Parameter                  |  Description  |
 | -------------------------- | ------------- |
 | `shouldRenderOnNavigation` | Whether the customization callback should be executed upon navigation. If `true`, the `callback` will be executed on every navigation that the application executes. **IMPORTANT:** Please make sure that this option applies and is needed to your use case in order to avoid having an unnecessary performance impact. Normally you would not need to set it to true |
+| `shouldRenderOnPublicSites` | Whether the customization should be executed for anonymous (unauthenticated) users on public sites. Default is `false`. When set to `true`, the customization will run for both authenticated and unauthenticated users, provided that: 1) The `public-js-customizations` feature flag is enabled for your organization, and 2) The organization setting "Allow anonymous execution of customizations" is enabled in the Back Office Advanced Settings. **IMPORTANT:** This feature is optional and should be used carefully. Refer to the [security considerations](#public-site-customizations-security) section before enabling. |
 | `shouldUseCurrentContent`  | If the customization uses data from the current content (by executing `window.lumapps.getCurrentContent()`). As of right now, other than that use case, `shouldUseCurrentContent` should always be `false`. |
+
+### Public Site Customizations Security
+
+When using `shouldRenderOnPublicSites: true`, customizations will execute for anonymous (unauthenticated) users on public sites. This feature requires careful consideration:
+
+**Requirements:**
+- The `public-js-customizations` feature flag must be enabled for your organization
+- The organization setting "Allow anonymous execution of customizations" must be enabled in Back Office > Advanced Settings > Customization
+
+**Important Security Considerations:**
+
+⚠️ **Warning:** This feature is optional and you are not required to activate it. Its use is entirely at your own risk. The use of this feature may cause the Application to behave erratically and pose security risks. We strongly recommend that you contact your IT and security departments before activating it. LumApps maintains no oversight or control over this feature's application.
+
+**Best Practices:**
+- Only enable public site customizations if absolutely necessary for your use case
+- Carefully review all customization code that will run on public sites
+- Avoid exposing sensitive information in customizations visible to anonymous users
+- Test thoroughly on public pages before deploying to production
+- Consider the performance impact of customizations on public pages
+- Regularly audit your public customizations for security vulnerabilities
+
+**Example Usage:**
+
+```js
+// Customization that only runs for authenticated users (default behavior)
+window.lumapps.customize(({ render, targets, placement, components }) => {
+    render(targets.HEADER, placement.AFTER, components.Banner({
+        text: 'Welcome back!',
+    }));
+});
+
+// Customization that runs for both authenticated and anonymous users
+window.lumapps.customize(({ render, targets, placement, components }) => {
+    render(targets.HEADER, placement.AFTER, components.Banner({
+        text: 'Welcome to our public site!',
+    }));
+}, { shouldRenderOnPublicSites: true });
+```
 
 ### events
 

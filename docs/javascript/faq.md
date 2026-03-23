@@ -28,7 +28,14 @@ If you are considering self hosting your assets, here are some tips and notes th
 Adding comments to the deployed code is currently not supported. Comments add kilobytes to the overall page size which can potentially impact performance. So in order to avoid that performance overhead, comments are not supported and minifying the code is the best practice to follow.
 
 ### Customizations on public sites and pages
-Due to security concerns, in order to avoid leaking unwanted sensible information, customizations are not executed on public sites and pages.
+By default, customizations are only executed for authenticated users. However, customizations can now be configured to run on public sites for anonymous (unauthenticated) users by using the `shouldRenderOnPublicSites` configuration option.
+
+**Requirements to enable public site customizations:**
+1. The `public-js-customizations` feature flag must be enabled for your organization
+2. An administrator must enable "Allow anonymous execution of customizations" in Back Office > Advanced Settings
+3. The customization must explicitly set `shouldRenderOnPublicSites: true` in its configuration
+
+**Important:** This feature should be used carefully due to security considerations. Only enable it when necessary, and avoid exposing sensitive information to anonymous users. See the [Public Site Customizations](./capabilities#public-site-customizations) section for more details and best practices.
 
 ## Rendering on callbacks
 
