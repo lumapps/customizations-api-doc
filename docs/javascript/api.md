@@ -33,15 +33,15 @@ Where `callback` is a function that will receive a set of `parameters` and retur
 | `components`       | A group of [components](#components) that can be used for customizing your site.                                                                                   |
 | `constants`        | A group of variables that hold the different [constants](#constants) that can be used for creating components on your site.                                        |
 | `render`           | Function that allows rendering a component in a specific placement and target. See more details for this function [here](#render).                                 |
-| `session`          | Object that contains several values from the current session that can be useful when creating customizatio ns. See more details for this function [here](#session) |
-| `on`               | Function that will be executed upon user actions or component rendering. See more details for this function [here](#on)                                            |
-| `pushEvent`        | Function that generates custom events. See more details for this function [here](#pushEvent)                                                                       |
-| `getLatestEvents`  | Function that retrieves the latest events generated on the application. See more details for this function [here](#getLatestEvents)                                |
-| `state`            | Object that provides state management capabilities. See more details for this function [here](#state)                                                              |
+| `session`          | Object that contains several values from the current session that can be useful when creating customizations. See more details for this function [here](#session) |
+| `on`               | Function that will be executed upon user actions or component rendering.                                            |
+| `pushEvent`        | Function that generates custom events.                                                                              |
+| `getLatestEvents`  | Function that retrieves the latest events generated on the application.                                             |
+| `state`            | Object that provides state management capabilities.                                                                 |
 | `addWidgetFilters` | Function that allows adding custom filters to widgets. Supports public site customizations when configured. See more details [here](#addwidgetfilters)              |
-| `onNavigation` (**deprecated**) | Function that will be executed once any widget in a content is rendered. See more details for this function [here](#on-widget-rendered)               |
-| `onWidgetRendered` (**deprecated**) | Function that will be executed once the application has performed a navigation. See more details for this function [here](#on-navigation)         |
-| `api`          | [Axios](https://github.com/axios/axios) instance that allows the developer to execute AJAX requests. See more details for this function [here](#axios-api)             |
+| `onNavigation` (**deprecated**) | Function that will be executed once the application has performed a navigation.               |
+| `onWidgetRendered` (**deprecated**) | Function that will be executed once any widget in a content is rendered.          |
+| `api`          | [Axios](https://github.com/axios/axios) instance that allows the developer to execute AJAX requests.                    |
 
 And `configuration` is an object that allows these properties:
 
@@ -129,20 +129,21 @@ The following table displays the targets for the individual components across Lu
 | `targets.SETTINGS_BUTTON`            | Target id for the settings icon on the top bar.                                     | [Documentation](./capabilities#settings-button)             |
 | `targets.STICKY_HEADER`              | Target id for the sticky header.                                                    | [Documentation](./capabilities#sticky-header)               |
 | `targets.SUB_NAVIGATION`             | Target id for the sub navigation.                                                   | [Documentation](./capabilities#sub-navigation)              |
-| `targets.SUB_NAVIGATION_UI`          | Target id for the sub navigation's UI.                                              | [Documentation](./capabilities#sub-navigation-ui)           |
+| `targets.SUB_NAVIGATION_UI`          | Target id for the sub navigation's UI.                                              | [Documentation](./capabilities#sub-navigation)              |
 | `targets.USER_CARD_FIELDS`           | Target id for the user card displayed on hovering users                             | [Documentation](./capabilities#user-card-fields)            |
 | `targets.USER_DROPDOWN_LINKS`        | Target id for the user dropdown links page.                                         | [Documentation](./capabilities#user-dropdown-links)         |
-| `targets.USER_PROFILE_HEADER_FIELDS` | Target id for the user profile header fields                                        | [Documentation](./capabilities#user-profile-header-fields)  |
+| `targets.USER_PROFILE_HEADER_FIELDS` | Target id for the user profile header fields                                        | Documentation coming soon                                    |
 | `targets.USER_PROFILE_ORG_CHART`     | Target id for the user profile organization chart                                   | [Documentation](./capabilities#organization-chart)          |
 | `targets.WIDGET`                     | Target id for a widget.                                                             | [Documentation](./capabilities#widget)                      |
 
 #### Pages
 The following table displays the targets for LumApps pages
+
 | Target                               | Description                                                                         | Compatibilities                                             |
 |--------------------------------------|-------------------------------------------------------------------------------------|-------------------------------------------------------------|
 | `targets.COMMUNITY`                  | Target id for the community pages                                                   | [Documentation](./capabilities#community)                   |
 | `targets.CONTENT`                    | Target id for the content page                                                      | [Documentation](./capabilities#content)                     |
-| `targets.CUSTOM_LIST`                | Target id for the custom list page.                                                 | [Documentation](./capabilities#custom-list)                 |
+| `targets.CUSTOM_LIST`                | Target id for the custom list page.                                                 | Documentation coming soon                                   |
 | `targets.DIRECTORY`                  | Target id for the directory.                                                        | [Documentation](./capabilities#directory)                   |
 | `targets.ERROR_PAGE`                 | Target id for the error pages.                                                      | [Documentation](./capabilities#error-page)                  |
 | `targets.FEED`                       | Target id for the feed page.                                                        | [Documentation](./capabilities#feed)                        |
@@ -438,7 +439,7 @@ window.lumapps.customize(({ targets, components, render, placement, constants })
 
 ```js
 window.lumapps.customize(({ components, constants }) => {
-    const { Button } = components;
+    const { IconButton } = components;
     const { Size, ColorPalette, Emphasis } = constants;
 
     const onClick = () => {
@@ -531,7 +532,7 @@ window.lumapps.customize(({ components, constants }) => {
 | `fillSpace`   | Boolean that determines whether the "content filling space" is enabled or not.               | No           | `boolean`                               | `false`       |
 | `noShrink`    | Boolean that determines whether the "content shrink" is disabled or not.                     | No           | `boolean`                               | `false`       |
 | `wrap`        | Boolean that determines whether the "flex wrap" is enabled or not.                           | No           | `boolean`                               | `false`       |
-| `gap`         | Gap space between flexbox items.                                                             | No           | "Size.big", "Size.tiny", "Size.regular", "Size.medium", "Size.huge"    [Size](#size)                            | `undefined`   |
+| `gap`         | Gap space between flexbox items.                                                             | No           | [`Size`](#size)                                                                                                 | `undefined`   |
 | `hAlign`      | Flex horizontal alignment.                                                                   | No           | [Alignment](#alignment)                 | `undefined`   |
 | `vAlign`      | Flex vertical alignment.                                                                     | No           | [Alignment](#alignment)                 | `undefined`   |
 
@@ -646,7 +647,7 @@ window.lumapps.customize(({ targets, components, constants }) => {
                 'aria-label': 'Copy',
                 size: Size.tiny,
                 onItemSelected: onCopyClick,
-                href: '/copy'
+                href: '/copy',
                 before: Icon({
                     icon: 'content-copy',
                     size: Size.xs,
@@ -1097,6 +1098,28 @@ window.lumapps.customize(({ constants }) => {
 
 ![image](./assets/thumbnail-variant.png)
 
+#### Typography
+
+```js
+window.lumapps.customize(({ constants }) => {
+    const { Typography } = constants;
+});
+```
+
+`Typography` is a key/value object that provides the possible typography variants for a component. Mostly used for the `Text` and `SkeletonTypography` components.
+
+| Option                   | Description                                |
+|--------------------------|--------------------------------------------|
+| `Typography.display1`    | Display 1 — largest heading style.         |
+| `Typography.headline`    | Headline style.                            |
+| `Typography.title`       | Title style.                               |
+| `Typography.subtitle2`   | Subtitle 2 style.                          |
+| `Typography.subtitle1`   | Subtitle 1 style.                          |
+| `Typography.body2`       | Body 2 — slightly emphasized body text.    |
+| `Typography.body1`       | Body 1 — default body text.               |
+| `Typography.caption`     | Caption style — small supporting text.     |
+| `Typography.overline`    | Overline style — small all-caps label.     |
+
 ### render
 
 The `render` function allows to display components in a specific placement targetting a specific target. It has two use cases:
@@ -1169,8 +1192,6 @@ window.lumapps.customize(({ targets, components, render, placement, constants })
 ```
 
 Here are the compatible targets and their received context:
-
-#### [Organization chart context](./capabilities#organization-chart)
 
 #### [Organization chart context](./capabilities#organization-chart)
 
@@ -1306,7 +1327,7 @@ Contains two `Promises`, one for the main navigation and another one for the sub
 | `navigationItem.title`          | Key/value object where the key is a language id and the value is the title for the item in that language. | `Record<string, string>` |
 | `navigationItem.parentInstance` | Id of the parent instance associated to this navigation item.                                             | `string`                 |
 | `navigationItem.className`      | Navigation item class, which is the class entered in the administration.                                  | `string`                 |
-| `navigationItem.classes`        | Navigation item classes, prefixed with `main-nav__child--${class}`.                                         `string[]`               |
+| `navigationItem.classes`        | Navigation item classes, prefixed with `main-nav__child--${class}`.                                         | `string[]`               |
 | `navigationItem.hasItems`       | Whether the navigation item has items as children of itself or not.                                       | `boolean`                |
 | `navigationItem.isActive`       | Whether one of the navigation item’s children is the current page or not.                                 | `boolean`                |
 | `navigationItem.openInNewTab`   | Whether the navigation item should be opened in a new tab or not.                                         | `boolean`                |
