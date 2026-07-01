@@ -17,6 +17,7 @@ The main entrypoint of this API is the object ```window.lumapps```. On this obje
 - [getInternalUrl](#getinternalurl)
 - [displayNotification](#displaynotification)
 - [addWidgetFilters](#addwidgetfilters)
+- [addSearchFilters](#addsearchfilters)
 
 ## customize
 
@@ -39,6 +40,7 @@ Where `callback` is a function that will receive a set of `parameters` and retur
 | `getLatestEvents`  | Function that retrieves the latest events generated on the application. See more details for this function [here](#getLatestEvents)                                |
 | `state`            | Object that provides state management capabilities. See more details for this function [here](#state)                                                              |
 | `addWidgetFilters` | Function that allows adding custom filters to widgets. Supports public site customizations when configured. See more details [here](#addwidgetfilters)              |
+| `addSearchFilters` | Function that allows adding custom filters to global search and Ask AI. Supports public site customizations when configured. See more details [here](#addsearchfilters) |
 | `onNavigation` (**deprecated**) | Function that will be executed once any widget in a content is rendered. See more details for this function [here](#on-widget-rendered)               |
 | `onWidgetRendered` (**deprecated**) | Function that will be executed once the application has performed a navigation. See more details for this function [here](#on-navigation)         |
 | `api`          | [Axios](https://github.com/axios/axios) instance that allows the developer to execute AJAX requests. See more details for this function [here](#axios-api)             |
@@ -1463,6 +1465,53 @@ window.lumapps.customize(({ addWidgetFilters }) => {
     });
 }, { shouldRenderOnPublicSites: true });
 ```
+
+See the [Public Site Customizations Security](#public-site-customizations-security) section for more information about enabling and using public site customizations safely.
+
+### addSearchFilters
+
+The `addSearchFilters` function allows you to add custom filters to global search and Ask AI features on your site. This function is available in two locations with different capabilities:
+
+#### Top-level function (Legacy)
+
+```js
+window.lumapps.addSearchFilters(filterConfig);
+```
+
+**Important:** The top-level `window.lumapps.addSearchFilters()` function **does not support public site customizations**. Filters added using this method will only work for authenticated users.
+
+#### Within customize callback (Recommended)
+
+```js
+window.lumapps.customize(({ addSearchFilters }) => {
+    addSearchFilters(filterConfig);
+}, { shouldRenderOnPublicSites: true });
+```
+
+**Important:** When using `addSearchFilters` within the `window.lumapps.customize` callback, the function **supports public site customizations** when the `shouldRenderOnPublicSites` configuration option is set to `true`. This allows search filters to work for both authenticated and anonymous users on public sites.
+
+**Recommendation:** Use the `addSearchFilters` function within the `customize` callback to ensure compatibility with public site customizations and future updates.
+
+```js
+// Example: Adding search filters with public site support
+window.lumapps.customize(({ addSearchFilters }) => {
+    addSearchFilters({
+        metadataIds: ['your-metadata-id'],
+    });
+}, { shouldRenderOnPublicSites: true });
+```
+
+`filterConfig` options:
+
+| Option        | Description                                                                  | Is required? | Option type | Default Value |
+|---------------|------------------------------------------------------------------------------|--------------|-------------|---------------|
+| `metadataIds` | List of metadata IDs to filter search results and Ask AI by.                 | No           | `string[]`  | `undefined`   |
+
+**Use cases:**
+- Filter search results based on custom metadata or business logic
+- Apply contextual filters to Ask AI queries based on user attributes or session data
+- Restrict search results to specific content types, communities, or categories
+- Add dynamic filters based on user permissions or roles
 
 See the [Public Site Customizations Security](#public-site-customizations-security) section for more information about enabling and using public site customizations safely.
 
