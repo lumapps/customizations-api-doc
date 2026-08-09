@@ -98,15 +98,19 @@ To enable public site customizations, the following requirements must be met:
 
 ```js
 // This customization will run for both authenticated and anonymous users
-window.lumapps.customize(({ render, targets, placement, components }) => {
+window.lumapps.customize(({ render, targets, placement, components, constants }) => {
     const { Message } = components;
     const { Kind } = constants;
 
-    render(targets.HEADER, placement.AFTER, components.Message({
-        kind: Kind.info,
-        children: 'Welcome! This message is visible to everyone.',
-        hasBackground: true,
-    }));
+    render({
+        placement: placement.UNDER,
+        target: targets.HEADER,
+        toRender: Message({
+            kind: Kind.info,
+            children: 'Welcome! This message is visible to everyone.',
+            hasBackground: true,
+        }),
+    });
 }, { shouldRenderOnPublicSites: true });
 ```
 
@@ -115,7 +119,7 @@ window.lumapps.customize(({ render, targets, placement, components }) => {
 You can check whether a user is authenticated using the `session.isConnected` property to conditionally render different content:
 
 ```js
-window.lumapps.customize(({ render, targets, placement, components, session }) => {
+window.lumapps.customize(({ render, targets, placement, components, constants, session }) => {
     const { Message } = components;
     const { Kind } = constants;
 
@@ -123,11 +127,15 @@ window.lumapps.customize(({ render, targets, placement, components, session }) =
         ? 'Welcome back!'
         : 'Welcome! Please log in to access more features.';
 
-    render(targets.HEADER, placement.AFTER, components.Message({
-        kind: Kind.info,
-        children: message,
-        hasBackground: true,
-    }));
+    render({
+        placement: placement.UNDER,
+        target: targets.HEADER,
+        toRender: Message({
+            kind: Kind.info,
+            children: message,
+            hasBackground: true,
+        }),
+    });
 }, { shouldRenderOnPublicSites: true });
 ```
 
