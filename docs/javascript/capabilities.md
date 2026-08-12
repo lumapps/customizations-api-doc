@@ -404,7 +404,7 @@ Target that allows customizing the entire header of the application, which englo
 | Target ID     | `header`                                                                                            |
 | Description   | Target for the header of your site.                                                                 |
 | Placements    | No compatibility                                                                                    |
-| Disable       | No compatibility                                                                                    |
+| Disable       | Can be disabled. Disabling this feature hides the entire top bar and navigation.                    |
 | Changing text | No compatibility                                                                                    |
 
 ### Logo
