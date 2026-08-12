@@ -1377,6 +1377,7 @@ These are the ids of the components that can be customized:
 - [Search box](./capabilities#search-box)
 - [Bookmarks](./capabilities#bookmarks)
 - [Contribution button](./capabilities#contribution-button)
+- [Login button](./capabilities#login-button)
 
 ### getCurrentContent
 
