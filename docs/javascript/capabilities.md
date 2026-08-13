@@ -407,6 +407,20 @@ Target that allows customizing the entire header of the application, which englo
 | Disable       | No compatibility                                                                                    |
 | Changing text | No compatibility                                                                                    |
 
+### Login button
+
+Target for the top bar's sign-in entry point, shown only to anonymous (not logged in) users. It has no effect on the avatar/profile menu shown to a connected user — that element cannot be disabled.
+
+#### Compatibility
+
+|               |                                                                                                     |
+| ------------- | --------------------------------------------------------------------------------------------------- |
+| Target ID     | `login-button`                                                                                       |
+| Description   | Target for the login button displayed at the top bar for anonymous users.                           |
+| Placements    | No compatibility                                                                                     |
+| Disable       | Can be disabled. Only applies to anonymous users; a connected user's avatar/menu is never disabled.  |
+| Changing text | No compatibility                                                                                     |
+
 ### Logo
 
 Target that allows customizing the surroundings of the site's [logo](https://docs.lumapps.com/docs/explore-l08263938963294604/explore-l10172021770563788).
