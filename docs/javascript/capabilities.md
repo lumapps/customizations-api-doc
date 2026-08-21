@@ -711,6 +711,29 @@ Target that allows customizing the search tab.
 
 - [Display an icon next to each search tab](./use-cases#display-an-icon-next-to-each-search-tab)
 
+
+### Ask AI Search banner
+
+Target that allows customizing the Ask AI search banner.
+
+![Target Ask AI search banner](./assets/target-ask-ai-banner.png "Target Ask AI search banner")
+
+#### Compatibility
+
+|               |                                    |
+| ------------- | -----------------------------------|
+| Target ID     | `ask-ai-search-banner`           |
+| Description   | Target the Ask AI search banner. |
+| Placements    | No compatibility.                    |
+| Disable       | Can be disabled. Disabling this component prevents banner to be rendered in the search page. |
+| Changing text | No compatibility.                  |
+
+#### Use cases
+
+- [Disable the Ask AI search banner](./use-cases#disable-the-ask-ai-search-banner)
+
+
+
 ### Settings button
 
 Target that allows customizing the settings icon displayed on the top bar.
