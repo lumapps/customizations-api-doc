@@ -626,6 +626,14 @@ window.lumapps.disable('search-box');
 
 Adding this code snippet to the application will hide the search box from your LumApps site.
 
+## Disable the ask ai search banner
+
+```js
+window.lumapps.disable('ask-ai-search-banner');
+```
+
+Adding this code snippet to the application will hide the Ask AI search banner from your LumApps site's search page.
+
 ## Add links to other administration tools
 
 The settings target is a great way of adding links that will only be displayed for users that have the sufficient access rights to see the [settings icon](https://docs.lumapps.com/docs/explore-l3451406716743173#l34173657923168954).
