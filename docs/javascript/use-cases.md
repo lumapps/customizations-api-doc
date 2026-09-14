@@ -191,6 +191,227 @@ window.lumapps.customize(({ targets, components, render, placement, constants })
 });
 ```
 
+## Add new button on the rich text editor toolbar (widget RTE, article or event)
+
+![Use case wrex button](./assets/use-case-wrex-toolbar-item.png "Use case wrex button")
+
+In this use case, you'll probably want to have a new button on the rich text editor toolbar allowing you to insert specific elements from an external provider.
+
+```js
+window.lumapps.customize(
+  ({ targets, components, render, placement, constants, state }) => {
+    const {
+      DropdownSection,
+      DropdownItem,
+      RawHTML,
+      FlexBox,
+      Button,
+      List,
+      ListItem,
+    } = components;
+    const { Orientation, Size, Emphasis, Alignment } = constants;
+
+    /** Fetch the items from your external provider
+     * You can use our api wrapper(https://lumapps.github.io/customizations-api-doc/javascript/api.html#api-1)
+    */
+    const fetchItems = async () => {
+      const fetchedItems = new Promise((resolve) => {
+        setTimeout(() => {
+          resolve([
+            { id: "54", title: "First item", src: "https://lumapps.com" },
+            { id: "57", title: "Second item", src: "https://picsum.photos/" },
+          ]);
+        }, 500);
+      });
+      return fetchedItems;
+    };
+
+    /** Callback on search button click 
+    * - Fetch external items
+    * - Render those items on a list
+    */
+    async function onItemsSearch() {
+      const context = state.get("context");
+      const input = document.querySelector("input#items-search-input");
+      const searchQuery = input.value;
+
+      // Trigger the loading state of the dialog while we fetch items
+      context.openWrexConfigurationDialog({
+        isLoading: true,
+      });
+
+      const items = await fetchItems();
+
+      const { componentToRender } = setupConfiguration({ items, searchQuery });
+
+      await context.openWrexConfigurationDialog({
+        componentToRender,
+        isLoading: false,
+      });
+    }
+
+    /** Callback when the user select an item from the list 
+     * - Update the attributes on the element we want to insert
+     * - Rerender the list to display the selected state on the item
+    */
+    const onItemPickChange = (item, configurationData) => {
+      const context = state.get("context");
+
+      context.setWrexIframeAttributes({
+        src: item.src,
+        provider: "my-website",
+      });
+
+      const { componentToRender } = setupConfiguration({
+        ...configurationData,
+        selectedItemId: item.id,
+      });
+
+      context.openWrexConfigurationDialog({
+        componentToRender,
+      });
+    };
+
+    /** 
+     * Return the components to render on the configuration dialog
+     * - Display only an input + a search button without fetched items
+     * - Display the items in a list when available
+    */
+    function setupConfiguration(configurationData = {}) {
+      const { items, searchQuery, selectedItemId } = configurationData;
+      const componentsToDisplay = [
+        FlexBox({
+          children: [
+            // Note: this allow to display an input the same way as other place of the product 
+            RawHTML({
+              html: `
+                <div class="lumx-text-field lumx-text-field--has-input lumx-text-field--has-label lumx-text-field--theme-light">
+                  <div class="lumx-text-field__wrapper">
+                      <div class="lumx-text-field__input-wrapper">
+                          <input type="text" id="items-search-input" class="lumx-text-field__input-native lumx-text-field__input-native--text" value="${
+                            searchQuery || ""
+                          }" placeholder="Search an item">
+                      </div>
+                  </div>
+                </div>`,
+            }),
+            Button({
+              children: "Search",
+              emphasis: Emphasis.low,
+              onClick: onItemsSearch,
+            }),
+          ],
+          orientation: Orientation.horizontal,
+          gap: Size.regular,
+          hAlign: Alignment.center,
+        }),
+      ];
+
+      if (items && items.length > 0) {
+        const listItems = [];
+
+        for (const item of items) {
+          listItems.push(
+            ListItem({
+              children: item.title,
+              size: Size.tiny,
+              onItemSelected: () => onItemPickChange(item, configurationData),
+              isSelected: selectedItemId === item.id,
+            })
+          );
+        }
+
+        componentsToDisplay.push(
+          List({
+            children: listItems,
+          })
+        );
+      }
+
+      const componentToRender = FlexBox({
+        children: componentsToDisplay,
+        orientation: Orientation.vertical,
+        gap: Size.huge,
+      });
+
+      return { componentToRender };
+    }
+
+    /** Callback when the user click on our video custom button */
+    const onVideoButtonClick = async (context) => {
+      state.set("context", context);
+      const { componentToRender } = setupConfiguration();
+
+      context.openWrexConfigurationDialog({
+        componentToRender,
+      });
+    };
+
+    render({
+      placement: placement.UNDER,
+      target: targets.WREX_TOOLBAR,
+      toRenderWithContext: (context) => {
+        return DropdownSection({
+          children: [
+            DropdownItem({
+              title: "My videos",
+              icon: "video-account",
+              onClick: () => onVideoButtonClick(context),
+            }),
+          ],
+        });
+      },
+    });
+  }
+); 
+```
+### Use case information
+
+**openWrexConfigurationDialog** Function
+
+Open the configuration dialog and allows you to define his content.
+
+| Parameter | Description | Is required? | Option type | Default Value |
+|-----------|------|----------|---------|-------------|
+| `configuration` | Configuration options | Yes | object | `{}` |
+| `configuration.componentToRender` | The component to render inside the dialog | Yes | Component | `undefined` |
+| `configuration.isLoading` | Whether the dialog should be in a loading state | No | boolean | `false` |
+
+**setWrexIframeAttributes** Function
+
+Allows you to define the data of the iframe to insert
+
+*Note: calling this function will not insert an iframe, the insertion is done through the configuration dialog*
+
+| Parameter | Description | Is required? | Option type | Default Value |
+|-----------|------|----------|---------|-------------|
+| `attributes` | Configuration options | Yes | object | `{}` |
+| `attributes.src` | The url of the page to embed | Yes | string | `undefined` |
+| `attributes.srcDoc` | The html content of the iframe | No | string | `undefined` |
+| `attributes.title` | The title of the iframe, used for accessibility | No | string | `undefined` |
+| `attributes.provider` | The name of the provider of the iframe, used to identify an iframe | No | string | `undefined` |
+
+**setWrexImageAttributes** Function
+
+Allows you to define the data of the image to insert
+
+*Note: calling this function will not insert an image, the insertion is done through the configuration dialog*
+
+| Parameter | Description | Is required? | Option type | Default Value |
+|-----------|------|----------|---------|-------------|
+| `attributes` | Configuration options | Yes | object | `{}` |
+| `attributes.title` | The caption of the image group | No | string | `undefined` |
+| `attributes.images` | The image(s) to display | Yes | Image[] | `[]` |
+
+**Image** Object
+
+| Parameter | Description | Is required? | Option type | Default Value |
+|-----------|------|----------|---------|-------------|
+| `src` | The image url | Yes | string | `''` |
+| `alt` | The image alt text, should describe the image for accessibility purpose | No | string | `''` |
+| `height` | The image height (in px) | No | integer | `undefined` |
+| `width` | The image width (in px) | No | integer | `undefined` |
+
 ## Disabling bookmarks
 
 Bookmarks can be disabled in order to avoid them to be displayed by adding the following line of JavaScript to your site.
