@@ -634,6 +634,30 @@ window.lumapps.disable('ask-ai-search-banner');
 
 Adding this code snippet to the application will hide the Ask AI search banner from your LumApps site's search page.
 
+## Display a message under the Ask AI search banner
+
+The `ASK_AI_SEARCH_BANNER` target allows adding customizations right below the Ask AI search banner on the search page. This is useful to display a disclaimer or guidelines about how to use Ask AI on your site.
+
+```js
+window.lumapps.customize(({ targets, components, render, placement, constants }) => {
+    const { Message } = components;
+    const { Kind } = constants;
+
+    render({
+        placement: placement.UNDER,
+        target: targets.ASK_AI_SEARCH_BANNER,
+        toRender: Message({
+            className: 'customizations-wrapper',
+            kind: Kind.info,
+            children: 'Ask AI answers are generated automatically. Please double check important information.',
+            hasBackground: true,
+        }),
+    });
+});
+```
+
+**Note:** the customization is only rendered when the Ask AI search banner itself is displayed. If the banner has been disabled with `window.lumapps.disable('ask-ai-search-banner')`, nothing will be rendered.
+
 ## Add links to other administration tools
 
 The settings target is a great way of adding links that will only be displayed for users that have the sufficient access rights to see the [settings icon](https://docs.lumapps.com/docs/explore-l3451406716743173#l34173657923168954).
