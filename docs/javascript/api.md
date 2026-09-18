@@ -917,6 +917,41 @@ window.lumapps.customize(({ components, constants, render, placement, targets })
 
 **IMPORTANT:** Micro Apps can vary when it comes to their size, so it is imperative that, when integrating a Micro App with any of the Customizations API extension points, the developer makes sure that the used Micro App does not tamper with the default layout of the page and its surroundings. Is up to the developer to make sure that the customized feature does not impact LumApps's out-of-the-box functionalities.
 
+#### Extension
+
+This component allows to display an installed [marketplace extension](https://docs.lumapps.com/docs/ls/content/5508517796380672/admin-l9568619807585214extensions) on any of the Customizations API extension points, without having to use an Extension widget. The extension is identified by its installed extension id, which can be retrieved from the [Installed extensions](https://docs.lumapps.com/docs/ls/content/5508517796380672/admin-l9568619807585214extensions#installed-extensions) section by browsing the tab `Information` of each extension.
+
+The extension is rendered with the global settings configured in the administration, and with the `properties` provided in the customization. These `properties` follow the same contract as the settings of the Extension widget and are passed to the extension untouched.
+
+For example, the following snippet will display an extension right under the main navigation.
+```js
+window.lumapps.customize(({ components, render, placement, targets }) => {
+    const { Extension } = components;
+
+    render({
+        placement: placement.UNDER,
+        target: targets.NAVIGATION,
+        toRender: Extension({
+            id: '<your installed extension id>',
+            properties: { title: 'Hello from the customization API' },
+        }),
+    });
+})
+```
+
+`Extension` options:
+
+| Option       | Description                                                                                                   | Is required? | Option type            | Default Value |
+|--------------|---------------------------------------------------------------------------------------------------------------|--------------|------------------------|---------------|
+| `id`         | The id of the installed extension you want to display                                                         | Yes          | `string`               | `undefined`   |
+| `properties` | Properties handed to the extension's `content` component. Same contract as the Extension widget settings.     | No           | `object`               | `undefined`   |
+| `className`  | Class name that will be added to the component's root element.                                                | No           | `string`               | `undefined`   |
+| `theme`      | Theme applied to the extension, useful when the extension is rendered over a dark background.                  | No           | `'light'` or `'dark'`  | `'light'`     |
+
+Nothing is rendered when the extension cannot be resolved: if the id does not match any installed extension, or if the extension bundle fails to load, the customization is silently skipped and the page keeps rendering normally.
+
+**IMPORTANT:** Extensions are developed outside of LumApps and can vary a lot when it comes to their size and behaviour, so it is imperative that, when integrating an extension with any of the Customizations API extension points, the developer makes sure that the used extension does not tamper with the default layout of the page and its surroundings. Is up to the developer to make sure that the customized feature does not impact LumApps's out-of-the-box functionalities.
+
 #### Skeletons
 
 Skeleton are primitives shapes which mimic a piece of content in a recognizable way. It communicate loading states. There are three variants:
