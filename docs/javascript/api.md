@@ -58,7 +58,7 @@ And `configuration` is an object that allows these properties:
 When using `shouldRenderOnPublicSites: true`, customizations will execute for anonymous (unauthenticated) users on public sites. This feature requires careful consideration:
 
 **Requirements:**
-- The `public-js-customizations` feature flag must be enabled for your organization
+- Ask your LumApps representative to enable the  `Allow anonymous execution of customizations` Feature Flag for your organization
 - The organization setting "Allow anonymous execution of customizations" must be enabled in Back Office > Advanced Settings > Customization
 
 **Important Security Considerations:**
