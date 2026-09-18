@@ -724,12 +724,15 @@ Target that allows customizing the Ask AI search banner.
 | ------------- | -----------------------------------|
 | Target ID     | `ask-ai-search-banner`           |
 | Description   | Target the Ask AI search banner. |
-| Placements    | No compatibility.                    |
+| Placements    | Compatible with placements: `UNDER`. Customizations will be added right below the Ask AI search banner on the search page. |
 | Disable       | Can be disabled. Disabling this component prevents banner to be rendered in the search page. |
 | Changing text | No compatibility.                  |
 
+**Note:** Customizations added to this target are only displayed when the Ask AI search banner itself is displayed. If the banner is disabled or not available for the current user, the customizations will not be rendered.
+
 #### Use cases
 
+- [Display a message under the Ask AI search banner](./use-cases#display-a-message-under-the-ask-ai-search-banner)
 - [Disable the Ask AI search banner](./use-cases#disable-the-ask-ai-search-banner)
 
 
