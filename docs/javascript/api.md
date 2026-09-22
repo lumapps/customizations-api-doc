@@ -112,6 +112,7 @@ The following table displays the targets for the individual components across Lu
 |--------------------------------------|-------------------------------------------------------------------------------------|-------------------------------------------------------------|
 | `targets.APP`                        | Target id for application                                                           | [Documentation](./capabilities#application)                 |
 | `targets.ASK_AI_SEARCH_BANNER`       | Target id for the Ask AI search banner displayed on the search page.                | [Documentation](./capabilities#ask-ai-search-banner)        |
+| `targets.ASK_AI_SEARCH_BANNER_RESULTS` | Target id for the Ask AI answer displayed on the search page.                     | [Documentation](./capabilities#ask-ai-search-banner-results) |
 | `targets.BOOKMARKS`                  | Target id for the bookmarks/app launcher component                                  | [Documentation](./capabilities#bookmarks)                   |
 | `targets.BOOKMARKS_ITEMS`            | Target id for the bookmarks displayed inside the app launcher                       | [Documentation](./capabilities#bookmarks-items)             |
 | `targets.CONTRIBUTION_BUTTON`        | Target id for the contribution button.                                              | [Documentation](./capabilities#contribution-button)         |
