@@ -636,7 +636,7 @@ Adding this code snippet to the application will hide the Ask AI search banner f
 
 ## Display a message under the Ask AI search banner
 
-The `ASK_AI_SEARCH_BANNER` target allows adding customizations right below the Ask AI search banner on the search page. This is useful to display a disclaimer or guidelines about how to use Ask AI on your site.
+The `ASK_AI_SEARCH_BANNER` target allows adding customizations below the Ask AI search banner on the search page, outside of the answer block. This is useful to display a disclaimer or guidelines about how to use Ask AI on your site.
 
 ```js
 window.lumapps.customize(({ targets, components, render, placement, constants }) => {
@@ -656,7 +656,35 @@ window.lumapps.customize(({ targets, components, render, placement, constants })
 });
 ```
 
-**Note:** the customization is only rendered when the Ask AI search banner itself is displayed. If the banner has been disabled with `window.lumapps.disable('ask-ai-search-banner')`, nothing will be rendered.
+**Notes:** the customization is only rendered when the Ask AI search banner itself is displayed. If the banner has been disabled with `window.lumapps.disable('ask-ai-search-banner')`, nothing will be rendered.
+
+The customization is rendered outside of the collapsible area of the answer, so it stays fully visible whether the answer is collapsed or expanded. To render it inside the answer instead, use the `ASK_AI_SEARCH_BANNER_RESULTS` target described below.
+
+## Display a message at the end of the Ask AI answer
+
+The `ASK_AI_SEARCH_BANNER_RESULTS` target allows adding customizations at the end of the Ask AI answer content, inside the collapsible area. This is useful to display information that belongs to the answer itself, such as related resources.
+
+```js
+window.lumapps.customize(({ targets, components, render, placement, constants }) => {
+    const { Message } = components;
+    const { Kind } = constants;
+
+    render({
+        placement: placement.UNDER,
+        target: targets.ASK_AI_SEARCH_BANNER_RESULTS,
+        toRender: Message({
+            className: 'customizations-wrapper',
+            kind: Kind.info,
+            children: 'Need more details? Reach out to the support team.',
+            hasBackground: true,
+        }),
+    });
+});
+```
+
+**Note:** since the customization is rendered inside the collapsible area, it is truncated and faded out with the answer when the latter is collapsed, and only fully visible once the user clicks on "Show more".
+
+Both targets can be used at the same time: the `ASK_AI_SEARCH_BANNER_RESULTS` customization is displayed at the end of the answer, and the `ASK_AI_SEARCH_BANNER` one below the whole block.
 
 ## Add links to other administration tools
 

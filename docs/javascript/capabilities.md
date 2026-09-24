@@ -724,17 +724,42 @@ Target that allows customizing the Ask AI search banner.
 | ------------- | -----------------------------------|
 | Target ID     | `ask-ai-search-banner`           |
 | Description   | Target the Ask AI search banner. |
-| Placements    | Compatible with placements: `UNDER`. Customizations will be added right below the Ask AI search banner on the search page. |
+| Placements    | Compatible with placements: `UNDER`. Customizations will be added below the Ask AI search banner on the search page, outside of the answer block. |
 | Disable       | Can be disabled. Disabling this component prevents banner to be rendered in the search page. |
 | Changing text | No compatibility.                  |
 
-**Note:** Customizations added to this target are only displayed when the Ask AI search banner itself is displayed. If the banner is disabled or not available for the current user, the customizations will not be rendered.
+
+**Note:**  Customizations added to this target are rendered outside of the collapsible area of the answer and only when the Ask AI search banner itself is displayed. They stay fully visible whether the answer is collapsed or expanded, and their height is not taken into account when deciding if the answer has to be truncated with a "Show more" button. To render a customization inside the collapsible area instead, use the [Ask AI search banner results](#ask-ai-search-banner-results) target.
+
+Customizations are rendered as soon as the banner is displayed, but stay hidden until the answer has finished streaming. This allows components such as extensions to pre-load their data while the answer is being generated.
 
 #### Use cases
 
 - [Display a message under the Ask AI search banner](./use-cases#display-a-message-under-the-ask-ai-search-banner)
 - [Disable the Ask AI search banner](./use-cases#disable-the-ask-ai-search-banner)
 
+
+### Ask AI Search banner results
+
+Target that allows customizing the Ask AI answer displayed on the search page, at the end of the answer content.
+
+#### Compatibility
+
+|               |                                    |
+| ------------- | -----------------------------------|
+| Target ID     | `ask-ai-search-banner-results`     |
+| Description   | Target the Ask AI answer content.  |
+| Placements    | Compatible with placements: `UNDER`. Customizations will be added at the end of the Ask AI answer, inside the collapsible area. |
+| Disable       | No compatibility.                  |
+| Changing text | No compatibility.                  |
+
+**Note:** Customizations added to this target are rendered inside the collapsible area of the answer and only when the Ask AI search banner itself is displayed. They are therefore truncated and faded out along with the answer when it is collapsed, and only fully visible once the user clicks on "Show more". Use the [Ask AI search banner](#ask-ai-search-banner) target to render a customization that always stays visible.
+
+Customizations are rendered as soon as the banner is displayed, but stay hidden until the answer has finished streaming. This allows components such as extensions to pre-load their data while the answer is being generated.
+
+#### Use cases
+
+- [Display a message at the end of the Ask AI answer](./use-cases#display-a-message-at-the-end-of-the-ask-ai-answer)
 
 
 ### Settings button
